@@ -28,15 +28,16 @@ public class ConnectionTypeFrame {
 
         Button button = (Button) event.getSource();
 
-        Main.primaryStage.hide();
-
         if(configStage == null) {
             configStage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("ConnectionConfigFrame.fxml"));
             configStage.setTitle("Configuration");
             configStage.setScene(new Scene(root, 300, 300));
         }
+        IntroClassHolder.connectionConfigFrame.setConnectionType_label(button.getText());
+
         configStage.show();
-        connectionType = button.getText();
+
+        Main.primaryStage.hide();
     }
 }

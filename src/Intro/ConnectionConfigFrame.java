@@ -13,10 +13,13 @@ public class ConnectionConfigFrame {
 
     @FXML Label ConnectionType_label;
 
-    //public void initialize(){}zzzzxz
+    public void setConnectionType_label(String type){
+
+        ConnectionType_label.setText(type);
+    }
 
     public void buttonPressed(ActionEvent event) {
         Main.primaryStage.show();
-        IntroClassHolder.connectionTypeFrame.configStage.hide();
+        ConnectionTypeFrame.configStage.hide();
     }
 }
