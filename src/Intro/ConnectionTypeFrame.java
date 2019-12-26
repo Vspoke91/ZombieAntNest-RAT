@@ -34,8 +34,10 @@ public class ConnectionTypeFrame {
             e.printStackTrace();
         }
 
-        if(ip.length() != 0)
+        if(ip != null)
             ip_label.setText(ip);
+        else
+            ip_label.setText("Not Found");
 
 
     }
