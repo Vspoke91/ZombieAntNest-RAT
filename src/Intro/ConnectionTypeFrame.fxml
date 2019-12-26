@@ -13,7 +13,7 @@
    <children>
       <VBox alignment="CENTER" layoutX="-15.0" layoutY="-27.0" prefHeight="418.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="IP:" />
+            <Label fx:id="ip_label" text="IP:" />
             <Label text="Welcome to ZAC-Nest">
                <VBox.margin>
                   <Insets bottom="30.0" />
