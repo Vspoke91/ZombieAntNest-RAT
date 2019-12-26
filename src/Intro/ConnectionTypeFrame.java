@@ -26,18 +26,18 @@ public class ConnectionTypeFrame {
 
     public void configure(){
 
-        try{
-            URL ipAdress = new URL("http://myexternalip.com/raw");
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(ipAdress.openStream()));
-            ip = in.readLine();
-            ip_label.setText(ip);
-
+        try {
+            ip = new BufferedReader(new InputStreamReader(new URL("http://myexternalip.com/raw").openStream())).readLine(); //reads line from a website to get ip
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        if(ip.length() != 0)
+            ip_label.setText(ip);
+
+
     }
 
     @FXML Button host_button;
