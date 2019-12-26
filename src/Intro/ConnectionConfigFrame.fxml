@@ -17,17 +17,17 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <Label fx:id="ConnectionType_label" text="NULL">
+            <Label fx:id="connectionType_label" text="NULL">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>
             </Label>
-            <Label maxWidth="-Infinity" prefWidth="150.0" text="IP:">
+            <Label fx:id="ip_label" cache="true" maxWidth="-Infinity" prefWidth="150.0" text="IP:">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <TextField editable="false" maxWidth="-Infinity" prefWidth="150.0">
+            <TextField fx:id="ip_textField" editable="false" maxWidth="-Infinity" prefWidth="150.0" promptText="000.000.000.000">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -37,7 +37,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <TextField maxWidth="-Infinity" prefWidth="150.0">
+            <TextField fx:id="port_textField" maxWidth="-Infinity" prefWidth="150.0" promptText="9191" text="9191">
                <VBox.margin>
                   <Insets bottom="20.0" />
                </VBox.margin>

@@ -3,6 +3,7 @@ package Intro;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class ConnectionConfigFrame {
 
@@ -11,13 +12,19 @@ public class ConnectionConfigFrame {
         IntroClassHolder.setConnectionConfigFrame(this);
     }
 
-    @FXML Label ConnectionType_label;
+    public void configure(){
 
-    public void setConnectionType_label(String type){
-        ConnectionType_label.setText(type);
+        ip_textField.setText(ConnectionTypeFrame.ip);
+
     }
 
+    @FXML Label connectionType_label;
+    @FXML Label ip_label;
+    @FXML TextField ip_textField;
+    @FXML TextField port_textField;
+
     public void buttonPressed(ActionEvent event) {
+
         Main.primaryStage.show();
         ConnectionTypeFrame.configStage.hide();
     }

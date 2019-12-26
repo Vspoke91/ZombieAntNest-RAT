@@ -34,11 +34,12 @@ public class ConnectionTypeFrame {
             e.printStackTrace();
         }
 
-        if(ip != null)
-            ip_label.setText(ip);
-        else
-            ip_label.setText("Not Found");
-
+        if(ip == null) {
+            ip = "Not Found";
+            host_button.setDisable(true);
+            hostAndController_button.setDisable(true);
+        }
+        ip_label.setText(ip);
 
     }
 
@@ -48,7 +49,6 @@ public class ConnectionTypeFrame {
     @FXML Label ip_label;
 
     public static Stage configStage;
-    public static String connectionType;
 
     public void buttonPressed(ActionEvent event) throws IOException {
 
@@ -59,11 +59,22 @@ public class ConnectionTypeFrame {
             Parent root = FXMLLoader.load(getClass().getResource("ConnectionConfigFrame.fxml"));
             configStage.setTitle("Configuration");
             configStage.setScene(new Scene(root, 300, 300));
+            IntroClassHolder.connectionConfigFrame.configure();
         }
-        IntroClassHolder.connectionConfigFrame.setConnectionType_label(button.getText());
+
+        //resets fields
+        IntroClassHolder.connectionConfigFrame.ip_textField.setDisable(false);
+        IntroClassHolder.connectionConfigFrame.ip_label.setDisable(false);
+
+        if(button.getText().equals("Controller")) {
+            IntroClassHolder.connectionConfigFrame.ip_textField.setDisable(true);
+            IntroClassHolder.connectionConfigFrame.ip_label.setDisable(true);
+        }
+
+        //sets type connection to label
+        IntroClassHolder.connectionConfigFrame.connectionType_label.setText(button.getText());
 
         configStage.show();
-
         Main.primaryStage.hide();
     }
 }
