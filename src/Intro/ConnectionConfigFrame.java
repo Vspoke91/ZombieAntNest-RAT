@@ -14,7 +14,6 @@ public class ConnectionConfigFrame {
     @FXML Label ConnectionType_label;
 
     public void setConnectionType_label(String type){
-
         ConnectionType_label.setText(type);
     }
 
