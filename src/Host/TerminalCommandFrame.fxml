@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Host.TerminalCommandFrame">
+   <children>
+      <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <HBox maxHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label fx:id="ip_label" maxHeight="-Infinity" prefHeight="30.0" text="IP: NULL" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="port_label" maxHeight="-Infinity" prefHeight="30.0" text="Port: NULL" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="connectionCount_label" maxHeight="-Infinity" prefHeight="30.0" text="Connections: NULL" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox prefHeight="334.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="127.0" text="IP List" VBox.vgrow="ALWAYS" />
+                        <ListView prefHeight="337.0" prefWidth="185.0" VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="400.0" prefWidth="445.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="472.0" text="Terminal" VBox.vgrow="ALWAYS" />
+                        <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="310.0" prefWidth="472.0" VBox.vgrow="ALWAYS">
+                           <content>
+                              <TextFlow fx:id="log_textFlow" prefHeight="317.0" prefWidth="470.0" />
+                           </content>
+                        </ScrollPane>
+                        <TextField fx:id="command_textField" maxHeight="-Infinity" onAction="#onEnter" prefHeight="30.0" prefWidth="472.0" promptText="Command...." VBox.vgrow="ALWAYS" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

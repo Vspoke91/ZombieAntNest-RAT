@@ -10,11 +10,9 @@
 <?import javafx.scene.text.TextFlow?>
 
 <AnchorPane prefHeight="307.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Intro.ConnectionTypeFrame">
-   <children>
       <VBox alignment="CENTER" layoutX="-15.0" layoutY="-27.0" prefHeight="418.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
             <Label fx:id="ip_label" text="NULL" />
-            <Label text="Welcome to ZAC-Nest">
+            <Label text="Welcome to ZAN-RAT">
                <VBox.margin>
                   <Insets bottom="30.0" />
                </VBox.margin>
@@ -40,12 +38,8 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Button>
-            <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
-               <content>
-                  <TextFlow />
-               </content>
-            </ScrollPane>
-         </children>
+         <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <TextFlow />
+         </ScrollPane>
       </VBox>
-   </children>
 </AnchorPane>

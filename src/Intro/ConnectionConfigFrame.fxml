@@ -9,46 +9,40 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="351.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Intro.ConnectionConfigFrame">
-   <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="372.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Create Connection:">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="connectionType_label" text="NULL">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="ip_label" cache="true" maxWidth="-Infinity" prefWidth="150.0" text="IP:">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="ip_textField" editable="false" maxWidth="-Infinity" prefWidth="150.0" promptText="000.000.000.000">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </TextField>
-            <Label maxWidth="-Infinity" prefWidth="150.0" text="Port:">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="port_textField" maxWidth="-Infinity" prefWidth="150.0" promptText="9191" text="9191">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </TextField>
-            <Button mnemonicParsing="false" text="Connect" />
-         </children>
-      </VBox>
-      <HBox maxHeight="-Infinity" prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#buttonPressed" prefHeight="67.0" prefWidth="49.0" text="Back" HBox.hgrow="ALWAYS" />
-         </children>
-      </HBox>
-   </children>
+   <VBox alignment="CENTER" prefHeight="200.0" prefWidth="372.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Label text="Create Connection:">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="connectionType_label" text="NULL">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </Label>
+      <Label fx:id="ip_label" cache="true" maxWidth="-Infinity" prefWidth="150.0" text="IP:">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="ip_textField" editable="false" maxWidth="-Infinity" prefWidth="150.0" promptText="000.000.000.000">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </TextField>
+      <Label maxWidth="-Infinity" prefWidth="150.0" text="Port:">
+         <VBox.margin>
+            <Insets bottom="10.0" />
+         </VBox.margin>
+      </Label>
+      <TextField fx:id="port_textField" maxWidth="-Infinity" prefWidth="150.0" promptText="9191" text="9191">
+         <VBox.margin>
+            <Insets bottom="20.0" />
+         </VBox.margin>
+      </TextField>
+      <Button mnemonicParsing="false" onAction="#connectButtonPressed" text="Connect" />
+   </VBox>
+   <HBox maxHeight="-Infinity" prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <Button mnemonicParsing="false" onAction="#backButtonPressed" prefHeight="67.0" prefWidth="49.0" text="Back" HBox.hgrow="ALWAYS" />
+   </HBox>
 </AnchorPane>
