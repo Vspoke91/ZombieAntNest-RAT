@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.TextFlow?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ControllerCommandFrame">
+   <children>
+      <HBox prefHeight="100.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="400.0" prefWidth="126.0" HBox.hgrow="SOMETIMES">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="256.0" text="Target" />
+                  <ListView prefHeight="400.0" prefWidth="225.0" VBox.vgrow="ALWAYS" />
+               </children>
+            </VBox>
+            <VBox prefHeight="400.0" prefWidth="286.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="494.0" text="Commands" VBox.vgrow="ALWAYS" />
+                  <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
+                    <tabs>
+                      <Tab text="Untitled Tab 1">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="238.0" />
+                        </content>
+                      </Tab>
+                      <Tab text="Untitled Tab 2">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </children>
+            </VBox>
+            <VBox prefHeight="400.0" prefWidth="101.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="224.0" text="Terminal" VBox.vgrow="ALWAYS" />
+                  <ScrollPane fitToHeight="true" fitToWidth="true" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                     <content>
+                        <TextFlow prefHeight="373.0" prefWidth="363.0" />
+                     </content>
+                  </ScrollPane>
+                  <TextField />
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

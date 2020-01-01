@@ -1,5 +1,6 @@
 package Intro;
 
+import Controller.ControllerCommandFrame;
 import Host.TerminalCommandFrame;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +49,13 @@ public class ConnectionConfigFrame {
 
             TerminalCommandFrame.stage = new Stage();
             TerminalCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("/Host/TerminalCommandFrame.fxml")));
+
+            stage.hide();
+        }
+        else if (ConnectionTypeFrame.connectionType.equals("Controller")){
+
+            ControllerCommandFrame.stage = new Stage();
+            ControllerCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("/Controller/ControllerCommandFrame.fxml")));
 
             stage.hide();
         }
