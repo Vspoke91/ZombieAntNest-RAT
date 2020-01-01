@@ -23,7 +23,7 @@ public class ConnectionThread extends Thread {
     isRunning = true;
     isOnline = true;
 
-    setName(socket.getInetAddress().toString().split("/")[1]);
+    setName(socket.getRemoteSocketAddress().toString().split("/")[1]);
 
     TerminalCommandFrame.me.logText("["+getName()+"] has connected!","2daa09");
     TerminalCommandFrame.me.addConnection(this);
@@ -48,12 +48,12 @@ public class ConnectionThread extends Thread {
         while(!stopThread){
 
             try {
-                String message = input.readLine()+" ";
+                if(input.ready()) {
+                    String message = input.readLine();
 
-                if(message.trim().length() < 1) {
                     isOnline = true; //is used to reset timer
 
-                    TerminalCommandFrame.me.logText("["+getName()+"]"+" said \"" + message + "\"", "0943aa");
+                    TerminalCommandFrame.me.logText("[" + getName() + "]" + " said \"" + message + "\"", "0943aa");
                 }
             } catch (java.net.SocketException e) {
                 stopThread = true;
