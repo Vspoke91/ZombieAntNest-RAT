@@ -59,7 +59,6 @@ public class ConnectionTypeFrame {
 
             ConnectionConfigFrame.stage = new Stage();
             ConnectionConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("ConnectionConfigFrame.fxml")));
-            IntroClassHolder.connectionConfigFrame.initialize();
         }
 
         IntroClassHolder.connectionConfigFrame.connectionType_label.setText(connectionType);//sets type  of connection to label

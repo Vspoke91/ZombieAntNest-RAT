@@ -11,7 +11,6 @@ public class Main extends Application {
 
         ConnectionTypeFrame.stage = primaryStage;
         ConnectionTypeFrame.makeFrame(FXMLLoader.load(getClass().getResource("ConnectionTypeFrame.fxml")));
-        IntroClassHolder.connectionTypeFrame.initialize();
     }
 
     public static void main(String[] args) {

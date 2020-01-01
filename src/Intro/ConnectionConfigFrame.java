@@ -1,6 +1,5 @@
 package Intro;
 
-import Host.HostClassHolder;
 import Host.TerminalCommandFrame;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -51,7 +50,6 @@ public class ConnectionConfigFrame {
             TerminalCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("/Host/TerminalCommandFrame.fxml")));
 
             stage.hide();
-            HostClassHolder.terminalCommandFrame.initialize();
         }
     }
 
