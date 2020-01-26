@@ -30,7 +30,13 @@ public class ClientConnection extends Thread{
     public void run() {
         super.run();
 
-        output.println("hola");
-
+        while(true) {
+            output.println("hola-lolaso");
+            try {
+                sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
