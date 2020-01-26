@@ -49,11 +49,11 @@ public class ConnectionThread extends Thread {
 
             try {
                 if(input.ready()) {
-                    String message = input.readLine();
+                    String[] message = input.readLine().split("-");
 
                     isOnline = true; //is used to reset timer
 
-                    TerminalCommandFrame.me.logText("[" + getName() + "]" + " said \"" + message + "\"", "0943aa");
+                    TerminalCommandFrame.me.logText("[" + getName() + "]" + " said \"" + message[0] + "\" to #" + message[1] + "#", "0943aa");
                 }
             } catch (java.net.SocketException e) {
                 stopThread = true;
@@ -64,7 +64,7 @@ public class ConnectionThread extends Thread {
         }
 
         HostConnection.connectionThreadList.remove(this);
-        TerminalCommandFrame.me.logText("["+getName()+"] has disconnected!","aa4409");
+        TerminalCommandFrame.me.logText("["+getName()+"] has disconnected! ;(","aa4409");
         TerminalCommandFrame.me.deleteConnection(this);
         isRunning = false;
     }
@@ -86,8 +86,8 @@ public class ConnectionThread extends Thread {
 
                     isOnline = false;
                 else {
+
                     stopThread = true;
-                    TerminalCommandFrame.me.logText("[" + getName() + "] lost connection! ;(", "aa4409");
                 }
             }
         }).start();
