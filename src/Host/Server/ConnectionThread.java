@@ -49,11 +49,31 @@ public class ConnectionThread extends Thread {
 
             try {
                 if(input.ready()) {
-                    String[] message = input.readLine().split("-");
 
                     isOnline = true; //is used to reset timer
 
-                    TerminalCommandFrame.me.logText("[" + getName() + "]" + " said \"" + message[0] + "\" to #" + message[1] + "#", "0943aa");
+                    String[] message = input.readLine().split("-");
+
+
+                    switch (message[1]){
+
+                        case("host"):
+
+                            switch(message[0]) {
+
+                                case "check":
+                                    break;
+
+                                case "controller":
+                                    TerminalCommandFrame.me.logText("[" + getName() + "] was set to Controller", "0943aa");
+
+                                default:
+                                    TerminalCommandFrame.me.logText("[" + getName() + "]" + " said \"" + message[0] + "\" to #" + message[1] + "#", "0943aa");
+                            }
+
+                        default:
+                            TerminalCommandFrame.me.logText("[" + getName() + "]" + " said \"" + message[0] + "\" to #" + message[1] + "#", "0943aa");
+                    }
                 }
             } catch (java.net.SocketException e) {
                 stopThread = true;
