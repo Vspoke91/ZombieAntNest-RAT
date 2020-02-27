@@ -49,12 +49,17 @@
                         <Label alignment="CENTER" prefHeight="17.0" prefWidth="494.0" text="Commands" VBox.vgrow="ALWAYS" />
                         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" VBox.vgrow="ALWAYS">
                           <tabs>
-                            <Tab text="Untitled Tab 1">
+                            <Tab text="ZC-RAT">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="238.0" />
                               </content>
                             </Tab>
-                            <Tab text="Untitled Tab 2">
+                             <Tab text="Device">
+                                <content>
+                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="238.0" />
+                                </content>
+                             </Tab>
+                            <Tab text="Attacks">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                               </content>

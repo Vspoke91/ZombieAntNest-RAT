@@ -12,10 +12,10 @@ public class ClientConnection extends Thread{
     private BufferedReader input;
     private PrintWriter output;
 
-    public ClientConnection(){
-
+    public ClientConnection(String hostIP, int port){
+        //"68.98.164.176"
         try {
-            socket = new Socket("68.98.164.176", 9191);
+            socket = new Socket(hostIP, port);
 
             input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
             output = new PrintWriter(socket.getOutputStream(), true); //sends message
@@ -30,8 +30,10 @@ public class ClientConnection extends Thread{
     public void run() {
         super.run();
 
+        output.println("host-type|controller");
+
         while(true) {
-            output.println("hola-lolaso");
+            output.println("host-check");
             try {
                 sleep(200);
             } catch (InterruptedException e) {

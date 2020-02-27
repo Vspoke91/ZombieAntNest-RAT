@@ -14,10 +14,10 @@ import java.io.IOException;
 
 public class ConnectionConfigFrame {
 
+    public static ConnectionConfigFrame me;
     public static String ip;
     public static int port;
-    static Stage stage;
-
+    public static Stage stage;
 
     @FXML Label connectionType_label;
     @FXML Label ip_label;
@@ -25,8 +25,7 @@ public class ConnectionConfigFrame {
     @FXML TextField port_textField;
 
     public ConnectionConfigFrame() {
-
-        IntroClassHolder.setConnectionConfigFrame(this);
+        me = this;
     }
 
     public void initialize() {
@@ -36,7 +35,7 @@ public class ConnectionConfigFrame {
 
     public void backButtonPressed() {
 
-        ConnectionTypeFrame.stage.show();
+        //ConnectionTypeFrame.stage.show();
         stage.hide();
     }
 

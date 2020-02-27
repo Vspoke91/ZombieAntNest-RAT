@@ -32,7 +32,6 @@ public class TerminalCommandFrame {
     @FXML ListView ip_ListView;
 
     public TerminalCommandFrame(){
-
         me = this;
     }
 
