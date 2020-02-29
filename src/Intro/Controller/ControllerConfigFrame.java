@@ -1,5 +1,6 @@
 package Intro.Controller;
 
+import Intro.ConnectionConfigFrame;
 import Intro.ConnectionTypeFrame;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -12,6 +13,8 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -20,7 +23,7 @@ import static java.lang.Thread.sleep;
 public class ControllerConfigFrame {
 
     public static ControllerConfigFrame me;
-
+    public static boolean foundHost;
     public static Stage stage;
 
     @FXML Label error_label;
@@ -83,7 +86,16 @@ public class ControllerConfigFrame {
 
     public boolean hostConnectionCheck (String ip, int port){
 
-        return false;
+        new Thread(() -> {
+            try {
+                new Socket(ip, port);
+                foundHost = true;
+            } catch (IOException e) {
+                foundHost = false;
+            }
+        }).start();
+
+        return foundHost;
     }
 
     public ArrayList<String> readSettings(String file) throws FileNotFoundException {
