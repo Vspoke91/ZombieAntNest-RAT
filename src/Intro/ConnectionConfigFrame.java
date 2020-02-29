@@ -24,6 +24,7 @@ public class ConnectionConfigFrame {
     @FXML TextField ip_textField;
     @FXML TextField port_textField;
 
+    /*
     public ConnectionConfigFrame() {
         me = this;
     }
@@ -78,4 +79,7 @@ public class ConnectionConfigFrame {
         stage.setTitle("Configuration");
         stage.setScene(new Scene(root, 300, 300));
     }
+
+     */
+
 }

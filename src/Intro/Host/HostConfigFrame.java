@@ -8,6 +8,10 @@ public class HostConfigFrame {
 
     public static Stage stage;
 
+    public void backAction(){
+
+    }
+
     public static void makeFrame(Parent load, Stage stage){
 
         HostConfigFrame.stage = stage;
