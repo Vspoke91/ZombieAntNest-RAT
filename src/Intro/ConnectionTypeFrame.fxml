@@ -1,40 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="307.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Intro.ConnectionTypeFrame">
-         <Label fx:id="ip_label" maxHeight="-Infinity" prefHeight="20.0" text="IP: NULL" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <VBox alignment="CENTER" layoutX="-15.0" layoutY="-27.0" prefHeight="418.0" prefWidth="614.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-            <Label text="Welcome to ZAN-RAnT">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label text="Select connection:">
-               <VBox.margin>
-                  <Insets bottom="20.0" />
-               </VBox.margin>
-            </Label>
-            <Button fx:id="host_button" mnemonicParsing="false" onAction="#buttonPressed" text="Host" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin></Button>
-            <Button fx:id="controller_button" mnemonicParsing="false" onAction="#buttonPressed" text="Controller">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin></Button>
-      <Label fx:id="error_label" text="Error Label" textFill="RED">
-         <VBox.margin>
-            <Insets bottom="10.0" />
-         </VBox.margin>
-      </Label>
-      </VBox>
+<AnchorPane prefHeight="307.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Intro.ConnectionTypeFrame">
+   <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <children>
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <children>
+                     <Label fx:id="ip_label" maxHeight="-Infinity" prefHeight="20.0" text="IP: NULL">
+                  <HBox.margin>
+                     <Insets right="10.0" />
+                  </HBox.margin>
+               </Label>
+               <Label fx:id="errorWifi_label" text="No Internet Connection!" textFill="RED" />
+            </children>
+         </HBox>
+            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="614.0">
+                  <Label text="Welcome to ZAN-RAnT">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label text="Select connection:">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="host_button" mnemonicParsing="false" onAction="#buttonPressed" text="Host" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+            </Button>
+                  <Button fx:id="controller_button" mnemonicParsing="false" onAction="#buttonPressed" text="Controller">
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+            </Button>
+            <Label fx:id="error_label" layoutX="99.0" layoutY="212.0" text="Error Label" textFill="RED" />
+            </VBox>
+      </children>
+   </VBox>
 </AnchorPane>

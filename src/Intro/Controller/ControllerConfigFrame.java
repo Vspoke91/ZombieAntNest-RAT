@@ -6,6 +6,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -30,6 +31,7 @@ public class ControllerConfigFrame {
     @FXML TextField hostIP_textField;
     @FXML TextField port_textField;
     @FXML CheckBox save_checkBox;
+    @FXML Button connect_button;
 
     public ControllerConfigFrame(){
         me = this;
@@ -54,13 +56,24 @@ public class ControllerConfigFrame {
             }
     }
 
-    public void startConnection(){
+    public void startConnection() {
 
-        if(hostConnectionCheck(hostIP_textField.getText(), Integer.parseInt(port_textField.getText()))){
+       connect_button.setDisable(true);
+       connect_button.setText("Checking host");
 
-        }else{
-            showErrorMessage("Host not found!",1);
-        }
+        new Thread(() -> {
+
+            try {
+
+                new Socket(hostIP_textField.getText(), Integer.parseInt(port_textField.getText()));
+                return ;
+            } catch (IOException e) {
+
+                showErrorMessage("Host not found!", 5);
+                Platform.runLater(() -> connect_button.setText("Connect"));
+                connect_button.setDisable(false);
+            }
+        }).start();
     }
 
     public void backAction(){
@@ -68,7 +81,6 @@ public class ControllerConfigFrame {
         ConnectionTypeFrame.stage.show();
         stage.hide();
     }
-
 
     public void showErrorMessage(String message, int seconds){
 
@@ -82,20 +94,6 @@ public class ControllerConfigFrame {
 
             Platform.runLater(() -> error_label.setVisible(false));
         }).start();
-    }
-
-    public boolean hostConnectionCheck (String ip, int port){
-
-        new Thread(() -> {
-            try {
-                new Socket(ip, port);
-                foundHost = true;
-            } catch (IOException e) {
-                foundHost = false;
-            }
-        }).start();
-
-        return foundHost;
     }
 
     public ArrayList<String> readSettings(String file) throws FileNotFoundException {
