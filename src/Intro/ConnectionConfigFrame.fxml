@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="351.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Intro.ConnectionConfigFrame">
+<AnchorPane prefHeight="351.0" prefWidth="284.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Intro.ConnectionConfigFrame">
    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="372.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Label text="Create Connection:">
          <VBox.margin>
@@ -43,6 +39,6 @@
       <Button mnemonicParsing="false" onAction="#connectButtonPressed" text="Connect" />
    </VBox>
    <HBox maxHeight="-Infinity" prefHeight="17.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
-         <Button mnemonicParsing="false" onAction="#backButtonPressed" prefHeight="67.0" prefWidth="49.0" text="Back" HBox.hgrow="ALWAYS" />
+         <Button mnemonicParsing="false" onAction="#backButtonPressed" prefHeight="26.0" text="Back" HBox.hgrow="ALWAYS" />
    </HBox>
 </AnchorPane>

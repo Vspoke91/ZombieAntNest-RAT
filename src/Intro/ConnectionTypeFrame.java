@@ -54,6 +54,7 @@ public class ConnectionTypeFrame {
             controller_button.setDisable(true);
         }
 
+
         //sets ip for label and disables buttons if not found
         if(ip == null) {
 

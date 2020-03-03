@@ -22,7 +22,7 @@ public class HostConnection extends Thread{
         stop = false;
 
         TerminalCommandFrame.me.logText("Welcome!\nServer is starting....","19b386");
-        try { ss = new ServerSocket(ConnectionConfigFrame.port); } catch (IOException e) { e.printStackTrace(); }
+        try { ss = new ServerSocket(9191); } catch (IOException e) { e.printStackTrace(); }
         TerminalCommandFrame.me.logText("Server Ready and listening :)","19b386");
 
         //testing connection adding UI

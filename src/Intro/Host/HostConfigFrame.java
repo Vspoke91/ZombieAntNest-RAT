@@ -1,12 +1,20 @@
 package Intro.Host;
 
+import Host.TerminalCommandFrame;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 public class HostConfigFrame {
 
     public static Stage stage;
+
+    public void initialize() throws IOException {
+
+    }
 
     public void backAction(){
 
