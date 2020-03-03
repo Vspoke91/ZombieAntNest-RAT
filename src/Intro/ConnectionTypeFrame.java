@@ -115,7 +115,7 @@ public class ConnectionTypeFrame {
 
         ConnectionTypeFrame.stage = stage;
         stage.setTitle("ZAN - Welcome");
-        stage.setScene(new Scene(load, 300, 275));
+        stage.setScene(new Scene(load, 300, 300));
         stage.show();
     }
 }
