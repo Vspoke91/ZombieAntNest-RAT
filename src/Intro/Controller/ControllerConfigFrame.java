@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -57,9 +59,11 @@ public class ControllerConfigFrame {
         new Thread(() -> {
 
             try {
+                //sets a limit to the sockets so it does not take long to see if there is a server that it can connect.
+                new Socket().connect(new InetSocketAddress(hostIP_textField.getText(), Integer.parseInt(port_textField.getText())),100);
 
-                new Socket(hostIP_textField.getText(), Integer.parseInt(port_textField.getText()));
-                return ;
+                System.out.println("Found");
+
             } catch (IOException e) {
 
                 showErrorMessage("Host not found!", 5);

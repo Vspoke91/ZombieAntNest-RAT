@@ -9,7 +9,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
-        ConnectionTypeFrame.makeFrame(FXMLLoader.load(getClass().getResource("ConnectionTypeFrame.fxml")));
+        ConnectionTypeFrame.makeFrame(FXMLLoader.load(getClass().getResource("../resources/ConnectionTypeFrame.fxml")));
     }
 
     public static void main(String[] args) {

@@ -86,6 +86,8 @@ public class TerminalCommandFrame {
 
     public static void makeFrame(Parent root){
 
+        stage = new Stage();
+
         stage.setTitle("Terminal");
         stage.setScene(new Scene(root, 630, 400));
         stage.show();

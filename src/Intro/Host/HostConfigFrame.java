@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,9 +44,10 @@ public class HostConfigFrame {
         }
     }
 
-    public void createConnection() {
+    public void createConnection() throws IOException {
 
-
+        stage.hide();
+        TerminalCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../resources/TerminalCommandFrame.fxml")));
     }
 
     public void backAction(){
