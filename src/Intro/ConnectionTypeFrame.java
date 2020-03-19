@@ -65,8 +65,8 @@ public class ConnectionTypeFrame {
 
         ip_label.setText("My IP: " + ip);
 
-        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("Controller/ControllerConfigFrame.fxml")), new Stage());
-        HostConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("Host/HostConfigFrame.fxml")), new Stage());
+        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("Controller/ControllerConfigFrame.fxml")));
+        HostConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("Host/HostConfigFrame.fxml")));
 
         ControllerConfigFrame.stage.hide();
         HostConfigFrame.stage.hide();
@@ -74,27 +74,12 @@ public class ConnectionTypeFrame {
 
     public void buttonPressed(ActionEvent event)  {
 
+        stage.hide();
+
         if(controller_button.equals(event.getSource()))
             ControllerConfigFrame.stage.show();
         else if (host_button.equals(event.getSource()))
             HostConfigFrame.stage.show();
-        stage.hide();
-
-        /*
-        //makes a frame if configuration frame is null
-        if(ConnectionConfigFrame.stage == null) {
-
-            ConnectionConfigFrame.stage = new Stage();
-            ConnectionConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("ConnectionConfigFrame.fxml")));
-        }
-
-        ConnectionConfigFrame.me.connectionType_label.setText(connectionType);//sets type  of connection to label
-        ConnectionConfigFrame.me.resetFields(); //resets field in case of labels changing
-
-        ConnectionConfigFrame.stage.show();
-        stage.hide();
-
-         */
     }
 
     public void showErrorMessage(String message, int seconds){
@@ -111,9 +96,9 @@ public class ConnectionTypeFrame {
         }).start();
     }
 
-    static void makeFrame(Parent load, Stage stage){
+    static void makeFrame(Parent load){
 
-        ConnectionTypeFrame.stage = stage;
+        stage = new Stage();
         stage.setTitle("ZAN - Welcome");
         stage.setScene(new Scene(load, 300, 300));
         stage.show();

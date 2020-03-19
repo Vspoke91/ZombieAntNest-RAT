@@ -2,7 +2,6 @@ package Host;
 
 import Host.Server.ConnectionThread;
 import Host.Server.HostConnection;
-import Intro.ConnectionConfigFrame;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -37,8 +36,8 @@ public class TerminalCommandFrame {
 
     public void initialize(){
 
-        ip_label.setText("IP: "+ConnectionConfigFrame.ip);
-        port_label.setText("Port: "+ConnectionConfigFrame.port);
+        //ip_label.setText("IP: "+ConnectionConfigFrame.ip);
+        //port_label.setText("Port: "+ConnectionConfigFrame.port);
 
         HostConnection hostConnection = new HostConnection();
     }

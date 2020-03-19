@@ -1,7 +1,6 @@
 package Host.Server;
 
 import Host.TerminalCommandFrame;
-import Intro.ConnectionConfigFrame;
 
 import java.io.IOException;
 import java.net.ServerSocket;

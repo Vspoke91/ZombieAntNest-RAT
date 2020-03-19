@@ -1,7 +1,6 @@
 package Controller;
 
 import Controller.Server.ClientConnection;
-import Intro.ConnectionConfigFrame;
 import Intro.ConnectionTypeFrame;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
@@ -17,9 +16,9 @@ public class ControllerCommandFrame {
     @FXML Label port_label;
 
     public void initialize(){
-        hostIP_label.setText("Host IP: " + ConnectionConfigFrame.ip);
-        port_label.setText("Port: " + ConnectionConfigFrame.port);
-        ClientConnection clientConnection = new ClientConnection(ConnectionConfigFrame.ip, ConnectionConfigFrame.port);
+        //hostIP_label.setText("Host IP: " + ConnectionConfigFrame.ip);
+        //port_label.setText("Port: " + ConnectionConfigFrame.port);
+        //ClientConnection clientConnection = new ClientConnection(ConnectionConfigFrame.ip, ConnectionConfigFrame.port);
 
     }
 

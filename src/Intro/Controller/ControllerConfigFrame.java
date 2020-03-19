@@ -1,6 +1,5 @@
 package Intro.Controller;
 
-import Intro.ConnectionConfigFrame;
 import Intro.ConnectionTypeFrame;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -24,7 +23,6 @@ import static java.lang.Thread.sleep;
 public class ControllerConfigFrame {
 
     public static ControllerConfigFrame me;
-    public static boolean foundHost;
     public static Stage stage;
 
     @FXML Label error_label;
@@ -48,11 +46,6 @@ public class ControllerConfigFrame {
                 hostIP_textField.setText(settings.get(0).split(" ")[1]);
                 port_textField.setText(settings.get(1).split(" ")[1]);
                 save_checkBox.setSelected(true);
-            }else{
-
-                hostIP_textField.setText("");
-                port_textField.setText("");
-                save_checkBox.setSelected(false);
             }
     }
 
@@ -78,8 +71,8 @@ public class ControllerConfigFrame {
 
     public void backAction(){
 
-        ConnectionTypeFrame.stage.show();
         stage.hide();
+        ConnectionTypeFrame.stage.show();
     }
 
     public void showErrorMessage(String message, int seconds){
@@ -109,9 +102,9 @@ public class ControllerConfigFrame {
         return settings;
     }
 
-    public static void makeFrame(Parent load, Stage stage){
+    public static void makeFrame(Parent load){
 
-        ControllerConfigFrame.stage = stage;
+        stage = new Stage();
         stage.setTitle("ZAN - Controller Config");
         stage.setScene(new Scene(load, 300, 275));
         stage.show();
