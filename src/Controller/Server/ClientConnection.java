@@ -1,5 +1,7 @@
 package Controller.Server;
 
+import Intro.Main;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,10 +14,10 @@ public class ClientConnection extends Thread{
     private BufferedReader input;
     private PrintWriter output;
 
-    public ClientConnection(String hostIP, int port){
+    public ClientConnection(){
         //"68.98.164.176"
         try {
-            socket = new Socket(hostIP, port);
+            socket = new Socket(Main.ip, Main.port);
 
             input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
             output = new PrintWriter(socket.getOutputStream(), true); //sends message

@@ -1,8 +1,10 @@
 package Intro.Controller;
 
 import Intro.ConnectionTypeFrame;
+import Intro.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -51,9 +53,15 @@ public class ControllerConfigFrame {
             }
     }
 
-    public void startConnection() {
+    public void startConnection() throws IOException {
 
-       connect_button.setDisable(true);
+        Main.ip = hostIP_textField.getText();
+        Main.port = Integer.parseInt(port_textField.getText());
+
+        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../resources/ControllerCommandFrame.fxml")));
+
+        /*
+        connect_button.setDisable(true);
        connect_button.setText("Checking host");
 
         new Thread(() -> {
@@ -69,6 +77,7 @@ public class ControllerConfigFrame {
                 connect_button.setDisable(false);
             }
         }).start();
+         */
     }
 
     public void backAction(){
