@@ -24,9 +24,6 @@ public class ConnectionTypeFrame {
     public static ConnectionTypeFrame me;
     public static Stage stage;
 
-    static String ip;
-    static String connectionType;
-
     @FXML Label ip_label;
     @FXML Label errorWifi_label;
     @FXML Label error_label;
@@ -44,7 +41,7 @@ public class ConnectionTypeFrame {
         showErrorMessage("testing", 0);
 
         try {
-            ip = new BufferedReader(new InputStreamReader(new URL("http://myexternalip.com/raw").openStream())).readLine(); //reads line from a website to get ip
+            Main.ip = new BufferedReader(new InputStreamReader(new URL("http://myexternalip.com/raw").openStream())).readLine(); //reads line from a website to get ip
         } catch (IOException e) {
 
             errorWifi_label.setVisible(true);
@@ -53,14 +50,14 @@ public class ConnectionTypeFrame {
 
 
         //sets ip for label and disables buttons if not found
-        if(ip == null) {
+        if(Main.ip == null) {
 
-            ip = "Not found!";
+            Main.ip = "Not found!";
             showErrorMessage("IP not found!", 5);
             host_button.setDisable(true);
         }
 
-        ip_label.setText("My IP: " + ip);
+        ip_label.setText("My IP: " + Main.ip);
 
         ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../resources/ControllerConfigFrame.fxml")));
         HostConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../resources/HostConfigFrame.fxml")));

@@ -17,7 +17,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <Label prefHeight="16.0" text="IP: NULL">
+            <Label fx:id="ip_label" prefHeight="16.0" text="IP: NULL">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

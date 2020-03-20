@@ -2,6 +2,7 @@ package Intro.Host;
 
 import Host.TerminalCommandFrame;
 import Intro.ConnectionTypeFrame;
+import Intro.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,10 +29,13 @@ public class HostConfigFrame {
 
     @FXML Label error_label;
     @FXML TextField port_textField;
+    @FXML Label ip_label;
     @FXML CheckBox save_checkBox;
     @FXML Button create_button;
 
     public void initialize() throws IOException {
+
+        ip_label.setText("IP: " + Main.ip);
 
         showErrorMessage("testing",0);
 
@@ -45,6 +49,8 @@ public class HostConfigFrame {
     }
 
     public void createConnection() throws IOException {
+
+        Main.port = Integer.parseInt(port_textField.getText());
 
         stage.hide();
         TerminalCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../resources/TerminalCommandFrame.fxml")));

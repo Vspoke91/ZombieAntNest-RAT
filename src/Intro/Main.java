@@ -6,6 +6,9 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    public static String ip;
+    public static int port;
+
     @Override
     public void start(Stage stage) throws Exception{
 

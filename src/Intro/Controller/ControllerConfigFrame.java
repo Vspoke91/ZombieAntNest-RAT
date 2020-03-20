@@ -60,9 +60,7 @@ public class ControllerConfigFrame {
 
             try {
                 //sets a limit to the sockets so it does not take long to see if there is a server that it can connect.
-                new Socket().connect(new InetSocketAddress(hostIP_textField.getText(), Integer.parseInt(port_textField.getText())),100);
-
-                System.out.println("Found");
+                new Socket().connect(new InetSocketAddress(hostIP_textField.getText(), Integer.parseInt(port_textField.getText())));
 
             } catch (IOException e) {
 

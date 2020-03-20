@@ -1,6 +1,7 @@
 package Host.Server;
 
 import Host.TerminalCommandFrame;
+import Intro.Main;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -15,13 +16,14 @@ public class HostConnection extends Thread{
     private volatile boolean stop;
     public static ArrayList<ConnectionThread> connectionThreadList = new ArrayList<>();
 
-
     public HostConnection(){
 
         stop = false;
 
         TerminalCommandFrame.me.logText("Welcome!\nServer is starting....","19b386");
-        try { ss = new ServerSocket(9191); } catch (IOException e) { e.printStackTrace(); }
+
+        try { ss = new ServerSocket(Main.port); } catch (IOException e) { e.printStackTrace(); }
+
         TerminalCommandFrame.me.logText("Server Ready and listening :)","19b386");
 
         //testing connection adding UI
@@ -38,7 +40,6 @@ public class HostConnection extends Thread{
             try {
 
                 s = ss.accept();
-
                 new Thread(() -> {
                     validateConnection(s);
                     connectionThreadList.add(new ConnectionThread(s));

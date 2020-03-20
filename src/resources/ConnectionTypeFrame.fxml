@@ -23,7 +23,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-                  <Label text="Welcome to ZAN-RAnT">
+                  <Label text="Welcome to ZAN-RAT">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>
