@@ -16,21 +16,22 @@ public class ClientConnection extends Thread{
 
     public ClientConnection(){
         //"68.98.164.176"
-        try {
-            socket = new Socket(Main.ip, Main.port);
-
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
-            output = new PrintWriter(socket.getOutputStream(), true); //sends message
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         start();
     }
 
     public void run() {
         super.run();
+
+        try {
+            socket = new Socket(Main.ip, Main.port);
+
+        input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
+        output = new PrintWriter(socket.getOutputStream(), true); //sends message
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         output.println("host-type|controller");
 

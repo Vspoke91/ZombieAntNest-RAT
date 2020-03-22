@@ -40,6 +40,9 @@ public class HostConnection extends Thread{
             try {
 
                 s = ss.accept();
+
+                System.out.println(s.getRemoteSocketAddress());
+
                 new Thread(() -> {
                     validateConnection(s);
                     connectionThreadList.add(new ConnectionThread(s));
