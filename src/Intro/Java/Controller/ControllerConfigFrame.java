@@ -16,6 +16,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -50,16 +52,13 @@ public class ControllerConfigFrame {
             }
     }
 
-    public void startConnection() throws IOException {
+    public void startConnection() {
 
         Main.ip = hostIP_textField.getText();
         Main.port = Integer.parseInt(port_textField.getText());
 
-        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../resources/ControllerCommandFrame.fxml")));
-
-        /*
         connect_button.setDisable(true);
-       connect_button.setText("Checking host");
+        connect_button.setText("Checking host");
 
         new Thread(() -> {
 
@@ -74,7 +73,7 @@ public class ControllerConfigFrame {
                 connect_button.setDisable(false);
             }
         }).start();
-         */
+
     }
 
     public void backAction(){
