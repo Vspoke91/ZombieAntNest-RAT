@@ -1,6 +1,6 @@
 package Intro.Java;
 
-import Intro.Controller.ControllerConfigFrame;
+import Intro.Java.Controller.ControllerConfigFrame;
 import Intro.Java.Host.HostConfigFrame;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
