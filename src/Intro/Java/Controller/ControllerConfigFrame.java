@@ -65,7 +65,14 @@ public class ControllerConfigFrame {
             try {
                 //sets a limit to the sockets so it does not take long to see if there is a server that it can connect.
                 new Socket().connect(new InetSocketAddress(hostIP_textField.getText(), Integer.parseInt(port_textField.getText())), 1000);
-                ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../../Controller/FX/ControllerCommandFrame.fxml")));
+
+                Platform.runLater(() -> {
+                    try {
+                        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../../Controller/FX/ControllerCommandFrame.fxml")));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
 
             } catch (IOException e) {
 
