@@ -1,7 +1,7 @@
 package Intro.Controller;
 
-import Intro.ConnectionTypeFrame;
-import Intro.Main;
+import Intro.Java.ConnectionTypeFrame;
+import Intro.Java.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,9 +16,6 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -43,7 +40,7 @@ public class ControllerConfigFrame {
 
             showErrorMessage("testing",0);
 
-            ArrayList<String> settings = readSettings("src/Intro/Controller/ControllerSettings.txt");
+            ArrayList<String> settings = readSettings("src/Intro/Java/Controller/ControllerSettings.txt");
 
             if(Boolean.parseBoolean(settings.get(2).split(" ")[1])) {
 

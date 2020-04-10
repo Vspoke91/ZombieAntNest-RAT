@@ -1,25 +1,25 @@
-package Host;
+package Host.Java;
 
-import Host.Server.ConnectionThread;
-import Host.Server.HostConnection;
-import Intro.Main;
+import Controller.Java.ClientConnection;
+import Controller.Java.ControllerCommandFrame;
+import Intro.Java.Main;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-public class TerminalCommandFrame {
+import java.io.IOException;
 
-    public static TerminalCommandFrame me;
+public class HostCommandFrame {
+
+    public static HostCommandFrame me;
     public static Stage stage;
 
     public int connectionCounter;
@@ -31,8 +31,9 @@ public class TerminalCommandFrame {
     @FXML TextField command_textField;
     @FXML ScrollPane log_ScrollPane;
     @FXML ListView ip_ListView;
+    @FXML Button takeControl_Button;
 
-    public TerminalCommandFrame(){
+    public HostCommandFrame(){
         me = this;
     }
 
@@ -42,6 +43,13 @@ public class TerminalCommandFrame {
         port_label.setText("Port: "+Main.port);
 
         HostConnection hostConnection = new HostConnection();
+    }
+
+    public void takeControlOnAction() throws IOException {
+
+        takeControl_Button.setDisable(true);
+        ClientConnection.isLocal = true;
+        ControllerCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../Controller/FX/ControllerCommandFrame.fxml")));
     }
 
     public void logText(String text, String color){
@@ -63,13 +71,32 @@ public class TerminalCommandFrame {
         }
     }
 
-
     public void addConnection(ConnectionThread connection){
-
         connectionCounter++;
 
         Platform.runLater(() -> ip_ListView.getItems().add(connection));
         Platform.runLater(() -> connectionCount_label.setText("Connections: "+connectionCounter));
+    }
+
+    public void checkChange(ConnectionThread connection){
+
+        int index;
+
+        if(ip_ListView.getItems().indexOf(connection) != -1)
+            index = ip_ListView.getItems().indexOf(connection);
+
+        else if(ip_ListView.getItems().indexOf(">"+connection) != -1)
+            index = ip_ListView.getItems().indexOf(">"+connection);
+
+        else if(ip_ListView.getItems().indexOf("<"+connection) != -1)
+            index = ip_ListView.getItems().indexOf("<"+connection);
+        else
+            index = -1;
+
+        if(ip_ListView.getItems().get(index).equals(">"+connection))
+            Platform.runLater(() -> ip_ListView.getItems().set(index,"<"+connection));
+        else
+            Platform.runLater(() -> ip_ListView.getItems().set(index,">"+connection));
     }
 
     public void deleteConnection(ConnectionThread connection){
@@ -82,7 +109,7 @@ public class TerminalCommandFrame {
     //when a command is enter
     public void onEnter(ActionEvent event){
 
-        System.out.println("ready to hack");
+
 
     }
 

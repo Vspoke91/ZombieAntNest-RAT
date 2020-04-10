@@ -1,8 +1,6 @@
-package Controller;
+package Controller.Java;
 
-import Controller.Server.ClientConnection;
-import Intro.ConnectionTypeFrame;
-import Intro.Main;
+import Intro.Java.Main;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -17,6 +15,7 @@ public class ControllerCommandFrame {
     @FXML Label port_label;
 
     public void initialize(){
+
         hostIP_label.setText("Host IP: " + Main.ip);
         port_label.setText("Port: " + Main.port);
         ClientConnection clientConnection = new ClientConnection();
@@ -24,6 +23,7 @@ public class ControllerCommandFrame {
     }
 
     public static void makeFrame(Parent root){
+        stage = new Stage();
 
         stage.setTitle("Controller");
         stage.setScene(new Scene(root, 630, 400));

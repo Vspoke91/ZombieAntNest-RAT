@@ -1,6 +1,6 @@
-package Controller.Server;
+package Controller.Java;
 
-import Intro.Main;
+import Intro.Java.Main;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,12 +10,28 @@ import java.net.Socket;
 
 public class ClientConnection extends Thread{
 
+    public static boolean isLocal = false;
+
     Socket socket;
     private BufferedReader input;
     private PrintWriter output;
 
+
     public ClientConnection(){
         //"68.98.164.176"
+
+        try {
+            if(isLocal)
+                socket = new Socket("localhost", Main.port);
+            else
+                socket = new Socket(Main.ip, Main.port);
+
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
+            output = new PrintWriter(socket.getOutputStream(), true); //sends message
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         start();
     }
@@ -23,17 +39,7 @@ public class ClientConnection extends Thread{
     public void run() {
         super.run();
 
-        try {
-            socket = new Socket(Main.ip, Main.port);
-
-        input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
-        output = new PrintWriter(socket.getOutputStream(), true); //sends message
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        output.println("host-type|controller");
+        output.println("host-controller");
 
         while(true) {
             output.println("host-check");

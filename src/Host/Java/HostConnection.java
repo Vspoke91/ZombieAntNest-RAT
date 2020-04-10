@@ -1,7 +1,6 @@
-package Host.Server;
+package Host.Java;
 
-import Host.TerminalCommandFrame;
-import Intro.Main;
+import Intro.Java.Main;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -20,15 +19,15 @@ public class HostConnection extends Thread{
 
         stop = false;
 
-        TerminalCommandFrame.me.logText("Welcome!\nServer is starting....","19b386");
+        HostCommandFrame.me.logText("Welcome!\nServer is starting....","19b386");
 
         try { ss = new ServerSocket(Main.port); } catch (IOException e) { e.printStackTrace(); }
 
-        TerminalCommandFrame.me.logText("Server Ready and listening :)","19b386");
+        HostCommandFrame.me.logText("Server Ready and listening :)","19b386");
 
         //testing connection adding UI
-        TerminalCommandFrame.me.addConnection(null);
-        TerminalCommandFrame.me.deleteConnection(null);
+        HostCommandFrame.me.addConnection(null);
+        HostCommandFrame.me.deleteConnection(null);
 
         start();
     }
@@ -61,7 +60,7 @@ public class HostConnection extends Thread{
 
             if(connection.getName().equals(s.getInetAddress().toString().split("/")[1])){
 
-                TerminalCommandFrame.me.logText("["+connection+"] already connected!","aa4409");
+                HostCommandFrame.me.logText("["+connection+"] already connected!","aa4409");
                 connection.stopThread = true;
 
                 while(connection.isRunning){

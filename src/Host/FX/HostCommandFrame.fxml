@@ -1,21 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.TextFlow?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="630.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Host.TerminalCommandFrame">
+<AnchorPane prefHeight="400.0" prefWidth="630.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Host.Java.HostCommandFrame">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox maxHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
+                  <Button fx:id="takeControl_Button" minHeight="-Infinity" mnemonicParsing="false" onAction="#takeControlOnAction" prefHeight="30.0" prefWidth="84.0" text="Take Control" />
                   <Label fx:id="ip_label" maxHeight="-Infinity" prefHeight="30.0" text="IP: NULL" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="10.0" />

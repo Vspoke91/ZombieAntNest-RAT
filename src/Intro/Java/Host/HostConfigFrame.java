@@ -1,8 +1,8 @@
-package Intro.Host;
+package Intro.Java.Host;
 
-import Host.TerminalCommandFrame;
-import Intro.ConnectionTypeFrame;
-import Intro.Main;
+import Host.Java.HostCommandFrame;
+import Intro.Java.ConnectionTypeFrame;
+import Intro.Java.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,7 +39,7 @@ public class HostConfigFrame {
 
         showErrorMessage("testing",0);
 
-        ArrayList<String> settings = readSettings("src/Intro/Host/HostSettings.txt");
+        ArrayList<String> settings = readSettings("src/Intro/Java/Host/HostSettings.txt");
 
         if(Boolean.parseBoolean(settings.get(1).split(" ")[1])) {
 
@@ -53,7 +53,7 @@ public class HostConfigFrame {
         Main.port = Integer.parseInt(port_textField.getText());
 
         stage.hide();
-        TerminalCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../resources/TerminalCommandFrame.fxml")));
+        HostCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../../Host/FX/HostCommandFrame.fxml")));
     }
 
     public void backAction(){

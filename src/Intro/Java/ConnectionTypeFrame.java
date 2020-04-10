@@ -1,7 +1,7 @@
-package Intro;
+package Intro.Java;
 
 import Intro.Controller.ControllerConfigFrame;
-import Intro.Host.HostConfigFrame;
+import Intro.Java.Host.HostConfigFrame;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -59,8 +59,8 @@ public class ConnectionTypeFrame {
 
         ip_label.setText("My IP: " + Main.ip);
 
-        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../resources/ControllerConfigFrame.fxml")));
-        HostConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../resources/HostConfigFrame.fxml")));
+        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../FX/ControllerConfigFrame.fxml")));
+        HostConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../FX/HostConfigFrame.fxml")));
 
         ControllerConfigFrame.stage.hide();
         HostConfigFrame.stage.hide();
