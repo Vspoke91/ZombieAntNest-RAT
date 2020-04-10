@@ -1,4 +1,4 @@
-package Intro.Controller;
+package Intro.Java.Controller;
 
 import Intro.Java.ConnectionTypeFrame;
 import Intro.Java.Main;
@@ -64,7 +64,8 @@ public class ControllerConfigFrame {
 
             try {
                 //sets a limit to the sockets so it does not take long to see if there is a server that it can connect.
-                new Socket().connect(new InetSocketAddress(hostIP_textField.getText(), Integer.parseInt(port_textField.getText())));
+                new Socket().connect(new InetSocketAddress(hostIP_textField.getText(), Integer.parseInt(port_textField.getText())), 1000);
+                ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../../Controller/FX/ControllerCommandFrame.fxml")));
 
             } catch (IOException e) {
 
