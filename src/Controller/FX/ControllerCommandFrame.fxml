@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Java.ControllerCommandFrame">
+<AnchorPane prefHeight="379.0" prefWidth="554.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Java.ControllerCommandFrame">
    <children>
       <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -35,7 +35,7 @@
             </HBox>
             <HBox prefHeight="361.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <VBox prefHeight="400.0" prefWidth="126.0" HBox.hgrow="SOMETIMES">
+                  <VBox prefHeight="400.0" prefWidth="126.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label alignment="CENTER" prefHeight="17.0" prefWidth="256.0" text="Target" />
                         <ListView prefHeight="400.0" prefWidth="225.0" VBox.vgrow="ALWAYS" />
