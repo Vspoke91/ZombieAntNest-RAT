@@ -12,7 +12,7 @@ public class ClientConnection extends Thread{
 
     public static boolean isLocal = false;
 
-    Socket socket;
+    private Socket socket;
     private BufferedReader input;
     private PrintWriter output;
 
@@ -34,6 +34,21 @@ public class ClientConnection extends Thread{
         }
 
         start();
+    }
+
+    public ClientConnection(Socket connection) {
+
+        socket = connection;
+
+        try {
+
+            input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
+            output = new PrintWriter(socket.getOutputStream(), true); //sends message
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void run() {

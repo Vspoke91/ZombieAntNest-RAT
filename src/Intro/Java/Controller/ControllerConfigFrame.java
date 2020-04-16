@@ -63,19 +63,22 @@ public class ControllerConfigFrame {
         new Thread(() -> {
 
             try {
+
                 //sets a limit to the sockets so it does not take long to see if there is a server that it can connect.
                 new Socket().connect(new InetSocketAddress(hostIP_textField.getText(), Integer.parseInt(port_textField.getText())), 1000);
 
                 Platform.runLater(() -> {
                     try {
                         ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../../Controller/FX/ControllerCommandFrame.fxml")));
+
+                        stage.hide();
+
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                 });
 
             } catch (IOException e) {
-
                 showErrorMessage("Host not found!", 5);
                 Platform.runLater(() -> connect_button.setText("Connect"));
                 connect_button.setDisable(false);

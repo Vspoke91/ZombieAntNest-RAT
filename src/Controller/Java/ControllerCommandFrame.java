@@ -7,18 +7,29 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
+import java.net.Socket;
+
 public class ControllerCommandFrame {
 
     public static Stage stage;
+    public static Socket connetion;
 
+    @FXML Label target_label;
+    @FXML Label myIP_label;
     @FXML Label hostIP_label;
     @FXML Label port_label;
 
     public void initialize(){
 
+        if(connetion == null)
+            new ClientConnection();
+        else
+            new ClientConnection(connetion);
+
+        target_label.setText("Target: None :c");
         hostIP_label.setText("Host IP: " + Main.ip);
         port_label.setText("Port: " + Main.port);
-        ClientConnection clientConnection = new ClientConnection();
+        myIP_label.setText(Main.ip);
 
     }
 
