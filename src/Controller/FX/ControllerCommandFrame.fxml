@@ -11,21 +11,26 @@
          <children>
             <HBox prefHeight="0.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
+                  <Label fx:id="target_label" prefHeight="71.0" text="Target: NULL" HBox.hgrow="ALWAYS">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                  </Label>
                   <Label fx:id="hostIP_label" prefHeight="36.0" text="Host IP: NULL" HBox.hgrow="ALWAYS">
                      <HBox.margin>
-                        <Insets />
+                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="port_label" prefHeight="61.0" prefWidth="57.0" text="Port: NULL" HBox.hgrow="ALWAYS">
+                  <Label fx:id="port_label" prefHeight="61.0" text="Port: NULL" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="target_label" prefHeight="71.0" prefWidth="69.0" text="Target: NULL" HBox.hgrow="ALWAYS">
-                     <HBox.margin>
-                        <Insets left="10.0" />
-                     </HBox.margin>
-                  </Label>
+                   <Label fx:id="myIP_label" prefHeight="61.0" text="My IP: NULL" HBox.hgrow="ALWAYS">
+                       <HBox.margin>
+                           <Insets left="10.0" />
+                       </HBox.margin>
+                   </Label>
                </children>
             </HBox>
             <HBox prefHeight="361.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
@@ -55,10 +60,30 @@
                             </Tab>
                              <Tab text="Device">
                                 <content>
-                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="238.0" />
+                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="371.0" prefWidth="238.0">
+                                       <children>
+                                           <VBox alignment="TOP_CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                             <children>
+                                                <Label text="IP: NULL" VBox.vgrow="ALWAYS">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin></Label>
+                                                <Label text="Connection Type: NULL">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <Label text="Device Type: NULL">
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                             </children></VBox>
+                                       </children>
+                                   </AnchorPane>
                                 </content>
                              </Tab>
-                            <Tab text="Attacks">
+                            <Tab text="Commands">
                               <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                               </content>
