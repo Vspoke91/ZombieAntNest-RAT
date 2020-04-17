@@ -35,7 +35,6 @@ public class ControllerCommandFrame {
 
     public static void makeFrame(Parent root){
 
-        System.out.println("lol");
         stage = new Stage();
 
         stage.setTitle("Controller");

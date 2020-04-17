@@ -25,10 +25,6 @@ public class HostConnection extends Thread{
 
         HostCommandFrame.me.logText("Server Ready and listening :)","19b386");
 
-        //testing connection adding UI
-        HostCommandFrame.me.addConnection(null);
-        HostCommandFrame.me.deleteConnection(null);
-
         start();
     }
 
@@ -40,7 +36,7 @@ public class HostConnection extends Thread{
 
                 s = ss.accept();
 
-                System.out.println(s.getRemoteSocketAddress());
+                System.out.println(s.getRemoteSocketAddress());//TODO: delete this latere
 
                 new Thread(() -> {
                     validateConnection(s);
@@ -52,6 +48,27 @@ public class HostConnection extends Thread{
             }
 
         }
+    }
+
+    public static ConnectionThread getConnectionInList(String name){
+
+        for (ConnectionThread connection: new ArrayList<>(connectionThreadList)) {
+
+            if(name.startsWith("<") || name.startsWith(">")) {
+
+                if (connection.getName().equals(name.substring(1)))
+
+                    return connection;
+
+            } else {
+
+                if (connection.getName().equals(name))
+                    return  connection;
+
+            }
+        }
+
+        return null;
     }
 
     public void validateConnection(Socket s){

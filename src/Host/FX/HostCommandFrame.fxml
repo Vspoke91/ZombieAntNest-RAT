@@ -11,7 +11,7 @@
          <children>
             <HBox maxHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="takeControl_Button" minHeight="-Infinity" mnemonicParsing="false" onAction="#takeControlOnAction" prefHeight="30.0" prefWidth="84.0" text="Take Control" />
+                  <Button fx:id="takeControl_Button" minHeight="-Infinity" mnemonicParsing="false" onAction="#takeControl_OnAction" prefHeight="30.0" prefWidth="84.0" text="Take Control" />
                   <Label fx:id="ip_label" maxHeight="-Infinity" prefHeight="30.0" text="IP: NULL" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -22,7 +22,7 @@
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="connectionCount_label" maxHeight="-Infinity" prefHeight="30.0" text="Connections: NULL" HBox.hgrow="ALWAYS">
+                  <Label fx:id="connectionCount_label" maxHeight="-Infinity" prefHeight="30.0" text="Connections: 0" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
@@ -33,8 +33,26 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="127.0" text="IP List" VBox.vgrow="ALWAYS" />
-                        <ListView fx:id="ip_ListView" prefHeight="337.0" prefWidth="185.0" VBox.vgrow="ALWAYS" />
+                        <VBox prefHeight="84.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="235.0" text="Info" />
+                              <Label fx:id="targetIP_label" prefHeight="17.0" prefWidth="195.0" text="IP: -.-" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Label>
+                              <Label fx:id="targetConnectionType_label" prefHeight="17.0" prefWidth="164.0" text="Connection: -.-" VBox.vgrow="ALWAYS">
+                                 <VBox.margin>
+                                    <Insets bottom="5.0" />
+                                 </VBox.margin></Label>
+                              <Label fx:id="targetDeviceType_label" prefHeight="17.0" prefWidth="172.0" text="Device: -.-" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="127.0" text="IP List" VBox.vgrow="ALWAYS" />
+                              <ListView fx:id="ip_ListView" prefHeight="337.0" prefWidth="185.0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
                      </children>
                   </VBox>
                   <VBox prefHeight="400.0" prefWidth="445.0" HBox.hgrow="ALWAYS">

@@ -13,6 +13,9 @@ public class ConnectionThread extends Thread {
     public volatile boolean isOnline;
     public volatile int checkCount;
 
+    public String ConnectionType;
+    public String DeviceType;
+
     private BufferedReader input;
     private PrintWriter output;
 
@@ -25,7 +28,7 @@ public class ConnectionThread extends Thread {
         setName(socket.getRemoteSocketAddress().toString().split("/")[1]);
 
         HostCommandFrame.me.logText("["+getName()+"] has connected!","2daa09");
-        HostCommandFrame.me.addConnection(this);
+        HostCommandFrame.me.addConnection(getName());
 
         try {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
@@ -52,30 +55,40 @@ public class ConnectionThread extends Thread {
 
                     String[] message = input.readLine().split("-");
 
-                    switch (message[0]){
+                    if(message[0].equals("host")){//to who
 
-                        case("host"):
-
-                            switch(message[1]) {
+                            switch(message[1]) {//what command
 
                                 case "check":
 
                                     if(checkCount == 10) {
                                         checkCount = 0;
-                                        HostCommandFrame.me.checkChange(this);
+                                        HostCommandFrame.me.checkChange(getName());
                                     }
 
                                     checkCount++;
                                     break;
 
-                                case "controller":
-                                    HostCommandFrame.me.logText("[" + getName() + "] was set to Controller", "0943aa");
+                                case "ct": //connection type
+                                    if(message[2].equals("controller"))
+                                        ConnectionType = "controller";
+
+                                    else if (message[2].equals("target"))
+                                        ConnectionType = "Target";
+
+                                    else
+                                        ConnectionType = "null";
+
+                                    HostCommandFrame.me.logText("[" + getName() + "] was set to " + ConnectionType, "0943aa");
                                     break;
 
-                                case "target":
-                                    HostCommandFrame.me.logText("[" + getName() + "] was set to Target", "0943aa");
+                                case "dt": //device type
+
+                                    DeviceType = message[2];
+
                                     break;
                             }
+
                     }
                 }
             } catch (java.net.SocketException e) {

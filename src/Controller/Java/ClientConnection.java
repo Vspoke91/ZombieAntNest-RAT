@@ -55,7 +55,8 @@ public class ClientConnection extends Thread{
     public void run() {
         super.run();
 
-        output.println("host-controller");
+        output.println("host-ct-controller");
+        output.println("host-dt-"+System.getProperty("os.name"));
 
         while(true) {
             output.println("host-check");
