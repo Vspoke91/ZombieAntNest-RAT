@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class ConnectionThread extends Thread {
 
@@ -13,11 +14,11 @@ public class ConnectionThread extends Thread {
     public volatile boolean isOnline;
     public volatile int checkCount;
 
-    public String ConnectionType;
-    public String DeviceType;
+    public String connectionType;
+    public String deviceType;
 
     private BufferedReader input;
-    private PrintWriter output;
+    public PrintWriter output;
 
     public ConnectionThread(Socket socket){
 
@@ -38,6 +39,7 @@ public class ConnectionThread extends Thread {
         }
 
         HostCommandFrame.me.logText("["+getName()+"] ready to command .(+_+)>","0943aa");
+
         start();
     }
 
@@ -70,26 +72,37 @@ public class ConnectionThread extends Thread {
                                     break;
 
                                 case "ct": //connection type
-                                    if(message[2].equals("controller"))
-                                        ConnectionType = "controller";
+                                    if(message[2].equals("controller")) {
+
+                                        connectionType = "controller";
+                                        sendAllTargetIPs();
+
+                                    }
 
                                     else if (message[2].equals("target"))
-                                        ConnectionType = "Target";
+                                        connectionType = "target";
 
                                     else
-                                        ConnectionType = "null";
+                                        connectionType = "null";
 
-                                    HostCommandFrame.me.logText("[" + getName() + "] was set to " + ConnectionType, "0943aa");
+                                    HostCommandFrame.me.logText("[" + getName() + "] was set to " + connectionType, "0943aa");
                                     break;
 
                                 case "dt": //device type
 
-                                    DeviceType = message[2];
+                                    deviceType = message[2];
 
                                     break;
                             }
 
                     }
+
+                    else {// when get a message not for host find the ip and send to that ip
+                        HostConnection.sendMessageTo(message[0], message[1]);
+                        HostCommandFrame.me.logText("[" + getName() + "] send \"" + message[1] + "\" to "+ message[0], "0943aa");
+
+                    }
+
                 }
             } catch (java.net.SocketException e) {
                 stopThread = true;
@@ -100,14 +113,25 @@ public class ConnectionThread extends Thread {
         }
 
         HostConnection.connectionThreadList.remove(this);
+
         HostCommandFrame.me.logText("["+getName()+"] has disconnected! ;(","aa4409");
-        HostCommandFrame.me.deleteConnection(this);
+        HostCommandFrame.me.deleteConnection(getName());
+
         isRunning = false;
     }
 
     public String toString(){
 
         return getName();
+    }
+
+    public void sendAllTargetIPs(){
+
+        for (ConnectionThread connection: new ArrayList<>(HostConnection.connectionThreadList)) {
+
+            if (connection.connectionType.equals("target"))
+                output.println("you-at-"+connection.getName()); //at = addTarget
+        }
     }
 
     //is set to disconnect if no data is going on both ends

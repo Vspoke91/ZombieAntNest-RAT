@@ -61,13 +61,17 @@ public class HostCommandFrame {
 
                 if (newValue != null){
 
+                    if(newValue.startsWith("<") || newValue.startsWith(">"))
+
+                        newValue = newValue.substring(1);
+
                     ConnectionThread connection = HostConnection.getConnectionInList(newValue);
 
                     target = connection.getName();
 
                     targetIP_label.setText("IP: "+connection.getName());
-                    targetDeviceType_label.setText("Device: "+connection.DeviceType);
-                    targetConnectionType_label.setText("Connection: "+connection.ConnectionType);
+                    targetDeviceType_label.setText("Device: "+connection.deviceType);
+                    targetConnectionType_label.setText("Connection: "+connection.connectionType);
                 }
             }
         });
@@ -128,7 +132,7 @@ public class HostCommandFrame {
             Platform.runLater(() -> ip_ListView.getItems().set(index,">"+connection));
     }
 
-    public void deleteConnection(ConnectionThread connection){
+    public void deleteConnection(String connection){
 
         connectionCounter--;
 
@@ -146,7 +150,7 @@ public class HostCommandFrame {
         else
             index = -1;
 
-        if(target.equals(connection.getName())){
+        if(target.equals(connection)){
 
             Platform.runLater(() -> targetIP_label.setText("IP: -.-"));
             Platform.runLater(() -> targetDeviceType_label.setText("Device: -.-"));

@@ -36,8 +36,6 @@ public class HostConnection extends Thread{
 
                 s = ss.accept();
 
-                System.out.println(s.getRemoteSocketAddress());//TODO: delete this latere
-
                 new Thread(() -> {
                     validateConnection(s);
                     connectionThreadList.add(new ConnectionThread(s));
@@ -50,22 +48,18 @@ public class HostConnection extends Thread{
         }
     }
 
+    public static void sendMessageTo(String name, String message){
+
+        getConnectionInList(name).output.println(message);
+
+    }
+
     public static ConnectionThread getConnectionInList(String name){
 
         for (ConnectionThread connection: new ArrayList<>(connectionThreadList)) {
 
-            if(name.startsWith("<") || name.startsWith(">")) {
-
-                if (connection.getName().equals(name.substring(1)))
-
-                    return connection;
-
-            } else {
-
                 if (connection.getName().equals(name))
                     return  connection;
-
-            }
         }
 
         return null;

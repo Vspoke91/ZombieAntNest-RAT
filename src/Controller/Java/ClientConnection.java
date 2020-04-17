@@ -1,5 +1,6 @@
 package Controller.Java;
 
+import Host.Java.HostCommandFrame;
 import Intro.Java.Main;
 
 import java.io.BufferedReader;
@@ -29,9 +30,7 @@ public class ClientConnection extends Thread{
             input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
             output = new PrintWriter(socket.getOutputStream(), true); //sends message
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException e) { e.printStackTrace(); }
 
         start();
     }
@@ -58,13 +57,58 @@ public class ClientConnection extends Thread{
         output.println("host-ct-controller");
         output.println("host-dt-"+System.getProperty("os.name"));
 
+        //starts a check thread to make sure it does not delay
+        new Thread(() -> {
+
+            while (true) {
+
+                output.println("host-check");
+
+                try {
+                    sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }).start();
+
         while(true) {
-            output.println("host-check");
+
             try {
-                sleep(200);
-            } catch (InterruptedException e) {
+                if(input.ready()){
+
+                    String[] message = input.readLine().split("-");
+
+                    if(message.equals("you")){//to who
+
+                        switch(message[1]) {//what command
+
+                            case "at": //add Target
+                                ControllerCommandFrame.me.addTarget(message[2]);
+                                break;
+                        }
+
+                    } else {
+
+                        System.out.println("message was not for me");
+                    }
+
+                }
+            } catch (IOException e) {
                 e.printStackTrace();
             }
+
         }
+    }
+
+    public void sendMessageTo(String name, String command){
+
+        output.println(name+"-"+command);
+    }
+
+    public void sendMessageTo(String name, String command, String message){
+
+        output.println(name+"-"+command+"-"+message);
     }
 }
