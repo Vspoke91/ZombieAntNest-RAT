@@ -48,6 +48,16 @@ public class HostConnection extends Thread{
         }
     }
 
+    public static void sendMessageToAllControllers(String message){
+
+        for (ConnectionThread connection: new ArrayList<>(connectionThreadList)) {
+
+            if (connection.connectionType.equals("controller"))
+                connection.output.println(message);
+        }
+
+    }
+
     public static void sendMessageTo(String name, String message){
 
         getConnectionInList(name).output.println(message);

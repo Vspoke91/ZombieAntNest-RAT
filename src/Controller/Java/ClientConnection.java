@@ -84,8 +84,11 @@ public class ClientConnection extends Thread{
 
                         switch(message[1]) {//what command
 
-                            case "at": //add Target
+                            case "adt": //add Target
                                 ControllerCommandFrame.me.addTarget(message[2]);
+                                break;
+                            case "det": //remove Target
+                                ControllerCommandFrame.me.deleteTarget(message[2]);
                                 break;
                         }
 
@@ -100,11 +103,6 @@ public class ClientConnection extends Thread{
             }
 
         }
-    }
-
-    public void sendMessageTo(String name, String command){
-
-        output.println(name+"-"+command);
     }
 
     public void sendMessageTo(String name, String command, String message){

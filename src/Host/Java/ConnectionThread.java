@@ -79,8 +79,11 @@ public class ConnectionThread extends Thread {
 
                                     }
 
-                                    else if (message[2].equals("target"))
+                                    else if (message[2].equals("target")) {
+
                                         connectionType = "target";
+                                        HostConnection.sendMessageToAllControllers("you-adt-"+getName());
+                                    }
 
                                     else
                                         connectionType = "null";
@@ -113,6 +116,7 @@ public class ConnectionThread extends Thread {
         }
 
         HostConnection.connectionThreadList.remove(this);
+        HostConnection.sendMessageToAllControllers("you-det-"+getName());
 
         HostCommandFrame.me.logText("["+getName()+"] has disconnected! ;(","aa4409");
         HostCommandFrame.me.deleteConnection(getName());
@@ -130,7 +134,7 @@ public class ConnectionThread extends Thread {
         for (ConnectionThread connection: new ArrayList<>(HostConnection.connectionThreadList)) {
 
             if (connection.connectionType.equals("target"))
-                output.println("you-at-"+connection.getName()); //at = addTarget
+                output.println("you-adt-"+connection.getName()); //at = addTarget
         }
     }
 
