@@ -80,7 +80,7 @@ public class ClientConnection extends Thread{
 
                     String[] message = input.readLine().split("-");
 
-                    if(message.equals("you")){//to who
+                    if(message[0].equals("you")){//to who
 
                         switch(message[1]) {//what command
 
