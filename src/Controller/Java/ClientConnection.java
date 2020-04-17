@@ -49,6 +49,7 @@ public class ClientConnection extends Thread{
             e.printStackTrace();
         }
 
+        start();
     }
 
     public void run() {

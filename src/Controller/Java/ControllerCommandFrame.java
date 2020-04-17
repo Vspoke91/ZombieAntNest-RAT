@@ -12,7 +12,7 @@ import java.net.Socket;
 public class ControllerCommandFrame {
 
     public static Stage stage;
-    public static Socket connetion;
+    public static Socket connection;
 
     @FXML Label target_label;
     @FXML Label myIP_label;
@@ -21,10 +21,10 @@ public class ControllerCommandFrame {
 
     public void initialize(){
 
-        if(connetion == null)
+        if(connection == null)
             new ClientConnection();
         else
-            new ClientConnection(connetion);
+            new ClientConnection(connection);
 
         target_label.setText("Target: None :c");
         hostIP_label.setText("Host IP: " + Main.ip);
@@ -34,6 +34,8 @@ public class ControllerCommandFrame {
     }
 
     public static void makeFrame(Parent root){
+
+        System.out.println("lol");
         stage = new Stage();
 
         stage.setTitle("Controller");

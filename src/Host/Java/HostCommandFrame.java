@@ -102,7 +102,21 @@ public class HostCommandFrame {
     public void deleteConnection(ConnectionThread connection){
 
         connectionCounter--;
-        Platform.runLater(() -> ip_ListView.getItems().remove(connection));
+
+        int index;
+
+        if(ip_ListView.getItems().indexOf(connection) != -1)
+            index = ip_ListView.getItems().indexOf(connection);
+
+        else if(ip_ListView.getItems().indexOf(">"+connection) != -1)
+            index = ip_ListView.getItems().indexOf(">"+connection);
+
+        else if(ip_ListView.getItems().indexOf("<"+connection) != -1)
+            index = ip_ListView.getItems().indexOf("<"+connection);
+        else
+            index = -1;
+
+        Platform.runLater(() -> ip_ListView.getItems().remove(index));
         Platform.runLater(() -> connectionCount_label.setText("Connections: "+connectionCounter));
     }
 
