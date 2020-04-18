@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
 import javafx.stage.Stage;
 
 import java.net.Socket;
@@ -36,6 +37,8 @@ public class ControllerCommandFrame {
     @FXML Label targetDeviceType_label;
 
     @FXML Button flashLight_button;
+    @FXML Tab device_tab;
+    @FXML Tab commands_tab;
 
     public ControllerCommandFrame(){
         me = this;
@@ -43,6 +46,8 @@ public class ControllerCommandFrame {
 
     public void initialize(){
 
+        device_tab.setDisable(true);
+        commands_tab.setDisable(true);
         target_label.setText("Target: None :c");
         hostIP_label.setText("Host IP: " + Main.ip);
         port_label.setText("Port: " + Main.port);
@@ -65,15 +70,15 @@ public class ControllerCommandFrame {
 
                 if (newValue != null){
 
+                    device_tab.setDisable(false);
+                    commands_tab.setDisable(false);
+
                     target = ClientConnection.getTargetInList(newValue);
 
                     target_label.setText("Target: "+target.ip);
-
                     targetIP_label.setText("IP: "+target.ip);
                     targetInternet_label.setText("Internet: "+target.internet);
                     targetDeviceType_label.setText("Device Type: "+target.deviceType);
-                }else{
-
 
                 }
             }
@@ -106,6 +111,14 @@ public class ControllerCommandFrame {
     public void deleteTarget(String target){
 
         Platform.runLater(() -> target_listView.getItems().remove(target));
+
+        if(target.equals(this.target.ip)){
+
+            Platform.runLater(() ->device_tab.setDisable(true));
+            Platform.runLater(() ->commands_tab.setDisable(true));
+            Platform.runLater(() -> target_label.setText("Target: None :c"));
+
+        }
     }
 
     public static void makeFrame(Parent root){

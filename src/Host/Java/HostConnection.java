@@ -65,8 +65,6 @@ public class HostConnection extends Thread{
         for (int i = 1; i < message.length; i++)
             totalMessage += "-"+message[i];
 
-        System.out.println(totalMessage);
-
         getConnectionInList(name).output.println("you"+totalMessage);
 
     }

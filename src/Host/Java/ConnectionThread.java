@@ -123,11 +123,12 @@ public class ConnectionThread extends Thread {
 
         }
 
+        HostCommandFrame.me.deleteConnection(getName());
+
         HostConnection.connectionThreadList.remove(this);
         HostConnection.sendMessageToAllControllers("you-det-"+getName());
 
         HostCommandFrame.me.logText("["+getName()+"] has disconnected! ;(","aa4409");
-        HostCommandFrame.me.deleteConnection(getName());
 
         isRunning = false;
     }
