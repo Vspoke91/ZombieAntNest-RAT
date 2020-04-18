@@ -48,12 +48,12 @@ public class HostCommandFrame {
         ip_label.setText("IP: "+ Main.ip);
         port_label.setText("Port: "+Main.port);
 
-        inspectTarget_OnAction();
+        selectConnection_OnAction();
 
         new HostConnection();
     }
 
-    public void inspectTarget_OnAction(){
+    public void selectConnection_OnAction(){
 
         ip_ListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
             @Override

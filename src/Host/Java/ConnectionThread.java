@@ -17,6 +17,9 @@ public class ConnectionThread extends Thread {
     public String connectionType;
     public String deviceType;
 
+    public String internet;
+    public boolean flashlightState;
+
     private BufferedReader input;
     public PrintWriter output;
 
@@ -63,7 +66,7 @@ public class ConnectionThread extends Thread {
 
                                 case "check":
 
-                                    if(checkCount == 10) {
+                                    if (checkCount == 10) {
                                         checkCount = 0;
                                         HostCommandFrame.me.checkChange(getName());
                                     }
@@ -72,37 +75,42 @@ public class ConnectionThread extends Thread {
                                     break;
 
                                 case "ct": //connection type
-                                    if(message[2].equals("controller")) {
+                                    if (message[2].equals("controller")) {
 
                                         connectionType = "controller";
                                         sendAllTargetIPs();
 
-                                    }
-
-                                    else if (message[2].equals("target")) {
+                                    } else if (message[2].equals("target")) {
 
                                         connectionType = "target";
-                                        HostConnection.sendMessageToAllControllers("you-adt-"+getName());
-                                    }
-
-                                    else
+                                        HostConnection.sendMessageToAllControllers("you-adt-" + getName());
+                                    } else
                                         connectionType = "null";
-
-                                    HostCommandFrame.me.logText("[" + getName() + "] was set to " + connectionType, "0943aa");
+                                        HostCommandFrame.me.logText("[" + getName() + "] was set to " + connectionType, "0943aa");
                                     break;
 
                                 case "dt": //device type
+                                    if (connectionType.equals("target")) {
 
-                                    deviceType = message[2];
+                                        deviceType = message[2];
+                                        HostConnection.sendMessageToAllControllers("you-adti-" + getName() + "-dt-" + deviceType);
+                                    }
+                                    break;
 
+                                case "fls": //flashLight State
+                                    if(connectionType.equals("target")) {
+
+                                        flashlightState = Boolean.valueOf(message[2]);
+                                        HostConnection.sendMessageToAllControllers("you-adti-" + getName() + "-fls-" + flashlightState);
+                                    }
                                     break;
                             }
 
                     }
 
                     else {// when get a message not for host find the ip and send to that ip
-                        HostConnection.sendMessageTo(message[0], message[1]);
-                        HostCommandFrame.me.logText("[" + getName() + "] send \"" + message[1] + "\" to "+ message[0], "0943aa");
+                        HostConnection.sendMessageTo(message[0], message);
+                        HostCommandFrame.me.logText("[" + getName() + "] send \"" + message[1]+"-"+message[2] + "\" to "+ message[0], "0943aa");
 
                     }
 
@@ -134,7 +142,7 @@ public class ConnectionThread extends Thread {
         for (ConnectionThread connection: new ArrayList<>(HostConnection.connectionThreadList)) {
 
             if (connection.connectionType.equals("target"))
-                output.println("you-adt-"+connection.getName()); //at = addTarget
+                output.println("you-adt-"+connection.getName()); //addTarget
         }
     }
 

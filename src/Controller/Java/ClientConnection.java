@@ -1,6 +1,5 @@
 package Controller.Java;
 
-import Host.Java.HostCommandFrame;
 import Intro.Java.Main;
 
 import java.io.BufferedReader;
@@ -8,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientConnection extends Thread{
 
@@ -17,6 +18,7 @@ public class ClientConnection extends Thread{
     private BufferedReader input;
     private PrintWriter output;
 
+    public static List<Target> targetList = new ArrayList<>();
 
     public ClientConnection(){
         //"68.98.164.176"
@@ -85,10 +87,15 @@ public class ClientConnection extends Thread{
                         switch(message[1]) {//what command
 
                             case "adt": //add Target
-                                ControllerCommandFrame.me.addTarget(message[2]);
+                                addTarget(message[2]);
                                 break;
+
                             case "det": //remove Target
-                                ControllerCommandFrame.me.deleteTarget(message[2]);
+                                deleteTarget(message[2]);
+                                break;
+
+                            case "adti": //add target info
+                                getTargetInList(message[2]).addTargetInfo(message[3], message[4]);
                                 break;
                         }
 
@@ -103,6 +110,28 @@ public class ClientConnection extends Thread{
             }
 
         }
+    }
+
+    public void addTarget(String ip){
+
+        targetList.add(new Target(ip));
+        ControllerCommandFrame.me.addTarget(ip);
+    }
+
+    public void deleteTarget(String ip){
+
+        targetList.remove(getTargetInList(ip));
+        ControllerCommandFrame.me.deleteTarget(ip);
+    }
+
+    public static Target getTargetInList(String ip){
+
+        for(Target target : targetList){
+
+            if(target.ip.equals(ip))
+                return target;
+        }
+        return null;
     }
 
     public void sendMessageTo(String name, String command, String message){
