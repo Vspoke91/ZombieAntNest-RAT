@@ -150,7 +150,7 @@ public class HostCommandFrame {
         else
             index = -1;
 
-        if(target.equals(connection)){
+        if( target != null &&target.equals(connection)){
 
             Platform.runLater(() -> targetIP_label.setText("IP: -.-"));
             Platform.runLater(() -> targetDeviceType_label.setText("Device: -.-"));

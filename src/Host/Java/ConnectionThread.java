@@ -142,8 +142,11 @@ public class ConnectionThread extends Thread {
 
         for (ConnectionThread connection: new ArrayList<>(HostConnection.connectionThreadList)) {
 
-            if (connection.connectionType.equals("target"))
-                output.println("you-adt-"+connection.getName()); //addTarget
+            if (connection.connectionType.equals("target")) {
+                output.println("you-adt-" + connection.getName()); //addTarget
+                output.println("you-adti-" + connection.getName() + "-dt-" + connection.deviceType);
+                output.println("you-adti-" + connection.getName() + "-fls-" + connection.flashlightState);
+            }
         }
     }
 

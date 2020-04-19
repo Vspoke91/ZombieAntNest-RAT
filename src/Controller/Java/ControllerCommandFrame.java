@@ -51,7 +51,7 @@ public class ControllerCommandFrame {
         target_label.setText("Target: None :c");
         hostIP_label.setText("Host IP: " + Main.ip);
         port_label.setText("Port: " + Main.port);
-        myIP_label.setText(Main.ip);
+        myIP_label.setText("My IP: "+Main.ip);
 
         selectTarget_OnAction();
 
