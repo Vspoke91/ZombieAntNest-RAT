@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="307.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Intro.Java.ConnectionTypeFrame">
+<AnchorPane prefHeight="307.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Configuration.MenuConfigFrame">
    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
          <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
@@ -36,7 +36,7 @@
                         <Insets bottom="20.0" />
                      </VBox.margin>
                   </Label>
-                  <Button fx:id="host_button" mnemonicParsing="false" onAction="#buttonPressed" text="Host" VBox.vgrow="ALWAYS">
+                  <Button fx:id="mother_button" mnemonicParsing="false" onAction="#buttonPressed" text="Mother" VBox.vgrow="ALWAYS">
                      <VBox.margin>
                         <Insets bottom="10.0" />
                      </VBox.margin>

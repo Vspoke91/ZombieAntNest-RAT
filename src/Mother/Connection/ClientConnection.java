@@ -1,4 +1,6 @@
-package Host.Java;
+package Mother.Connection;
+
+import Mother.Terminal.MotherTerminalFrame;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +9,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class ConnectionThread extends Thread {
+public class ClientConnection extends Thread {
 
     public volatile boolean stopThread;
     public volatile boolean isRunning;
@@ -23,7 +25,7 @@ public class ConnectionThread extends Thread {
     private BufferedReader input;
     public PrintWriter output;
 
-    public ConnectionThread(Socket socket){
+    public ClientConnection(Socket socket){
 
         stopThread = false;
         isRunning = true;
@@ -31,8 +33,8 @@ public class ConnectionThread extends Thread {
 
         setName(socket.getRemoteSocketAddress().toString().split("/")[1]);
 
-        HostCommandFrame.me.logText("["+getName()+"] has connected!","2daa09");
-        HostCommandFrame.me.addConnection(getName());
+        MotherTerminalFrame.me.logText("["+getName()+"] has connected!","2daa09");
+        MotherTerminalFrame.me.addConnection(getName());
 
         try {
             input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
@@ -41,7 +43,7 @@ public class ConnectionThread extends Thread {
             e.printStackTrace();
         }
 
-        HostCommandFrame.me.logText("["+getName()+"] ready to command .(+_+)>","0943aa");
+        MotherTerminalFrame.me.logText("["+getName()+"] ready to command .(+_+)>","0943aa");
 
         start();
     }
@@ -68,7 +70,7 @@ public class ConnectionThread extends Thread {
 
                                     if (checkCount == 10) {
                                         checkCount = 0;
-                                        HostCommandFrame.me.checkChange(getName());
+                                        MotherTerminalFrame.me.checkChange(getName());
                                     }
 
                                     checkCount++;
@@ -83,17 +85,17 @@ public class ConnectionThread extends Thread {
                                     } else if (message[2].equals("target")) {
 
                                         connectionType = "target";
-                                        HostConnection.sendMessageToAllControllers("you-adt-" + getName());
+                                        MotherConnection.sendMessageToAllControllers("you-adt-" + getName());
                                     } else
                                         connectionType = "null";
-                                        HostCommandFrame.me.logText("[" + getName() + "] was set to " + connectionType, "0943aa");
+                                        MotherTerminalFrame.me.logText("[" + getName() + "] was set to " + connectionType, "0943aa");
                                     break;
 
                                 case "dt": //device type
                                     if (connectionType.equals("target")) {
 
                                         deviceType = message[2];
-                                        HostConnection.sendMessageToAllControllers("you-adti-" + getName() + "-dt-" + deviceType);
+                                        MotherConnection.sendMessageToAllControllers("you-adti-" + getName() + "-dt-" + deviceType);
                                     }
                                     break;
 
@@ -101,7 +103,7 @@ public class ConnectionThread extends Thread {
                                     if(connectionType.equals("target")) {
 
                                         flashlightState = Boolean.valueOf(message[2]);
-                                        HostConnection.sendMessageToAllControllers("you-adti-" + getName() + "-fls-" + flashlightState);
+                                        MotherConnection.sendMessageToAllControllers("you-adti-" + getName() + "-fls-" + flashlightState);
                                     }
                                     break;
                             }
@@ -109,8 +111,8 @@ public class ConnectionThread extends Thread {
                     }
 
                     else {// when get a message not for host find the ip and send to that ip
-                        HostConnection.sendMessageTo(message[0], message);
-                        HostCommandFrame.me.logText("[" + getName() + "] send \"" + message[1]+"-"+message[2] + "\" to "+ message[0], "0943aa");
+                        MotherConnection.sendMessageTo(message[0], message);
+                        MotherTerminalFrame.me.logText("[" + getName() + "] send \"" + message[1]+"-"+message[2] + "\" to "+ message[0], "0943aa");
 
                     }
 
@@ -123,12 +125,12 @@ public class ConnectionThread extends Thread {
 
         }
 
-        HostCommandFrame.me.deleteConnection(getName());
+        MotherTerminalFrame.me.deleteConnection(getName());
 
-        HostConnection.connectionThreadList.remove(this);
-        HostConnection.sendMessageToAllControllers("you-det-"+getName());
+        MotherConnection.connectionThreadList.remove(this);
+        MotherConnection.sendMessageToAllControllers("you-det-"+getName());
 
-        HostCommandFrame.me.logText("["+getName()+"] has disconnected! ;(","aa4409");
+        MotherTerminalFrame.me.logText("["+getName()+"] has disconnected! ;(","aa4409");
 
         isRunning = false;
     }
@@ -140,7 +142,7 @@ public class ConnectionThread extends Thread {
 
     public void sendAllTargetIPs(){
 
-        for (ConnectionThread connection: new ArrayList<>(HostConnection.connectionThreadList)) {
+        for (ClientConnection connection: new ArrayList<>(MotherConnection.connectionThreadList)) {
 
             if (connection.connectionType.equals("target")) {
                 output.println("you-adt-" + connection.getName()); //addTarget

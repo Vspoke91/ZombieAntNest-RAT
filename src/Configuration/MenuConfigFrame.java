@@ -1,12 +1,13 @@
-package Intro.Java;
+package Configuration;
 
-import Intro.Java.Controller.ControllerConfigFrame;
-import Intro.Java.Host.HostConfigFrame;
+import Configuration.Controller.ControllerConfigFrame;
+import Configuration.Mother.MotherConfigFrame;
+import Main.Main;
+
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,32 +20,38 @@ import java.net.URL;
 
 import static java.lang.Thread.sleep;
 
-public class ConnectionTypeFrame {
+public class MenuConfigFrame {
 
-    public static ConnectionTypeFrame me;
+    public static MenuConfigFrame me;
     public static Stage stage;
 
     @FXML Label ip_label;
     @FXML Label errorWifi_label;
     @FXML Label error_label;
-    @FXML Button host_button;
+    @FXML Button mother_button;
     @FXML Button controller_button;
 
-    public ConnectionTypeFrame(){
+    public MenuConfigFrame(){
         me = this;
     }
 
     public void initialize() throws IOException {
 
         errorWifi_label.setVisible(false);
+        error_label.setVisible(false);
 
-        showErrorMessage("testing", 0);
+        ConfigIP(); //sets stuff related to ip
+
+        ip_label.setText("My IP: " + Main.ip);
+    }
+
+    private void ConfigIP(){
 
         try {
+
             Main.ip = new BufferedReader(new InputStreamReader(new URL("http://myexternalip.com/raw").openStream())).readLine(); //reads line from a website to get ip
         } catch (IOException e) {
-
-            errorWifi_label.setVisible(true);
+            errorWifi_label.setVisible(true);//not the error, it shows if you have internet
             controller_button.setDisable(true);
         }
 
@@ -53,27 +60,24 @@ public class ConnectionTypeFrame {
         if(Main.ip == null) {
 
             Main.ip = "Not found!";
+
             showErrorMessage("IP not found!", 5);
-            host_button.setDisable(true);
+
+            mother_button.setDisable(true);
         }
 
-        ip_label.setText("My IP: " + Main.ip);
-
-        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../FX/ControllerConfigFrame.fxml")));
-        HostConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../FX/HostConfigFrame.fxml")));
-
-        ControllerConfigFrame.stage.hide();
-        HostConfigFrame.stage.hide();
     }
 
-    public void buttonPressed(ActionEvent event)  {
+    public void buttonPressed(ActionEvent event) throws IOException {
 
         stage.hide();
 
         if(controller_button.equals(event.getSource()))
-            ControllerConfigFrame.stage.show();
-        else if (host_button.equals(event.getSource()))
-            HostConfigFrame.stage.show();
+            ControllerConfigFrame.makeFrame();
+
+        else if (mother_button.equals(event.getSource()))
+            MotherConfigFrame.makeFrame();
+
     }
 
     public void showErrorMessage(String message, int seconds){
@@ -90,11 +94,13 @@ public class ConnectionTypeFrame {
         }).start();
     }
 
-    static void makeFrame(Parent load){
+    public static void makeFrame() throws IOException {
 
         stage = new Stage();
-        stage.setTitle("ZAN - Welcome");
-        stage.setScene(new Scene(load, 300, 300));
+
+        stage.setTitle("ZAN-RAT Menu");
+        stage.setScene(new Scene(FXMLLoader.load(MenuConfigFrame.class.getResource("MenuConfigFrame.fxml")), 300, 300));
+
         stage.show();
     }
 }

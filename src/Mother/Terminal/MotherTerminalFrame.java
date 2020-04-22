@@ -1,8 +1,12 @@
-package Host.Java;
+package Mother.Terminal;
 
-import Controller.Java.ClientConnection;
-import Controller.Java.ControllerCommandFrame;
-import Intro.Java.Main;
+import Configuration.MenuConfigFrame;
+import Configuration.Mother.MotherConfigFrame;
+import Controller.Connection.ControllerConnection;
+import Controller.Terminal.ControllerTerminalFrame;
+import Mother.Connection.ClientConnection;
+import Mother.Connection.MotherConnection;
+import Main.Main;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,9 +23,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class HostCommandFrame {
+public class MotherTerminalFrame {
 
-    public static HostCommandFrame me;
+    public static MotherTerminalFrame me;
     public static Stage stage;
 
     public int connectionCounter;
@@ -39,7 +43,7 @@ public class HostCommandFrame {
     @FXML ListView ip_ListView;
     @FXML Button takeControl_Button;
 
-    public HostCommandFrame(){
+    public MotherTerminalFrame(){
         me = this;
     }
 
@@ -50,7 +54,7 @@ public class HostCommandFrame {
 
         selectConnection_OnAction();
 
-        new HostConnection();
+        new MotherConnection();
     }
 
     public void selectConnection_OnAction(){
@@ -65,7 +69,7 @@ public class HostCommandFrame {
 
                         newValue = newValue.substring(1);
 
-                    ConnectionThread connection = HostConnection.getConnectionInList(newValue);
+                    ClientConnection connection = MotherConnection.getConnectionInList(newValue);
 
                     target = connection.getName();
 
@@ -81,8 +85,8 @@ public class HostCommandFrame {
     public void takeControl_OnAction() throws IOException {
 
         takeControl_Button.setDisable(true);
-        ClientConnection.isLocal = true;
-        ControllerCommandFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../Controller/FX/ControllerCommandFrame.fxml")));
+        ControllerConnection.isLocal = true;
+        ControllerTerminalFrame.makeFrame();
     }
 
     public void logText(String text, String color){
@@ -169,12 +173,12 @@ public class HostCommandFrame {
 
     }
 
-    public static void makeFrame(Parent root){
+    public static void makeFrame() throws IOException {
 
         stage = new Stage();
 
         stage.setTitle("Terminal");
-        stage.setScene(new Scene(root, 630, 400));
+        stage.setScene(new Scene(FXMLLoader.load(MotherTerminalFrame.class.getResource("MotherTerminalFrame.fxml")), 630, 400));
         stage.show();
     }
 }

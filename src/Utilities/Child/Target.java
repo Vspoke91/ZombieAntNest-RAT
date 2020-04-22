@@ -1,15 +1,18 @@
-package Controller.Java;
+package Utilities.Child;
 
-public class Target {
+import Controller.Terminal.ControllerTerminalFrame;
+import Utilities.Child.Child;
+import javafx.application.Platform;
 
-    public String ip;
+public class Target extends Child {
+
     public String internet;
     public String deviceType;
     public boolean flashlightState;
 
     public Target(String name){
 
-        ip = name;
+        this.ip = name;
 
     }
 
@@ -23,7 +26,13 @@ public class Target {
 
             case "fls": //flashlightState
                 flashlightState = Boolean.valueOf(state);
-                ControllerCommandFrame.me.setFlashLightButton(flashlightState);
+
+                if(flashlightState)
+                    Platform.runLater(() -> ControllerTerminalFrame.me.flashLight_button.setText("FlashLight: ON"));
+
+                else
+                    Platform.runLater(() -> ControllerTerminalFrame.me.flashLight_button.setText("FlashLight: OFF"));
+
                 break;
 
             case "dt": //Device Type
@@ -33,5 +42,4 @@ public class Target {
         }
 
     }
-
 }

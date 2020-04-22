@@ -1,6 +1,9 @@
-package Controller.Java;
+package Controller.Connection;
 
-import Intro.Java.Main;
+import Controller.Terminal.ControllerTerminalFrame;
+import Main.Main;
+import Utilities.Child.Controller;
+import Utilities.Child.Target;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +13,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClientConnection extends Thread{
+public class ControllerConnection extends Thread{
+
+    public static ControllerConnection me;
 
     public static boolean isLocal = false;
 
@@ -20,8 +25,9 @@ public class ClientConnection extends Thread{
 
     public static List<Target> targetList = new ArrayList<>();
 
-    public ClientConnection(){
+    public ControllerConnection(){
         //"68.98.164.176"
+        me = this;
 
         try {
             if(isLocal)
@@ -37,7 +43,7 @@ public class ClientConnection extends Thread{
         start();
     }
 
-    public ClientConnection(Socket connection) {
+    public ControllerConnection(Socket connection) {
 
         socket = connection;
 
@@ -115,13 +121,13 @@ public class ClientConnection extends Thread{
     public void addTarget(String ip){
 
         targetList.add(new Target(ip));
-        ControllerCommandFrame.me.addTarget(ip);
+        ControllerTerminalFrame.me.addTarget(ip);
     }
 
     public void deleteTarget(String ip){
 
         targetList.remove(getTargetInList(ip));
-        ControllerCommandFrame.me.deleteTarget(ip);
+        ControllerTerminalFrame.me.deleteTarget(ip);
     }
 
     public static Target getTargetInList(String ip){

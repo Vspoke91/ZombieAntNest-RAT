@@ -1,29 +1,30 @@
-package Host.Java;
+package Mother.Connection;
 
-import Intro.Java.Main;
+import Mother.Terminal.MotherTerminalFrame;
+import Main.Main;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class HostConnection extends Thread{
+public class MotherConnection extends Thread{
 
     private Socket s;
     private ServerSocket ss;
 
     private volatile boolean stop;
-    public static ArrayList<ConnectionThread> connectionThreadList = new ArrayList<>();
+    public static ArrayList<ClientConnection> connectionThreadList = new ArrayList<>();
 
-    public HostConnection(){
+    public MotherConnection(){
 
         stop = false;
 
-        HostCommandFrame.me.logText("Welcome!\nServer is starting....","19b386");
+        MotherTerminalFrame.me.logText("Welcome!\nServer is starting....","19b386");
 
         try { ss = new ServerSocket(Main.port); } catch (IOException e) { e.printStackTrace(); }
 
-        HostCommandFrame.me.logText("Server Ready and listening :)","19b386");
+        MotherTerminalFrame.me.logText("Server Ready and listening :)","19b386");
 
         start();
     }
@@ -38,7 +39,7 @@ public class HostConnection extends Thread{
 
                 new Thread(() -> {
                     validateConnection(s);
-                    connectionThreadList.add(new ConnectionThread(s));
+                    connectionThreadList.add(new ClientConnection(s));
                 }).start();
 
             } catch (IOException e) {
@@ -50,7 +51,7 @@ public class HostConnection extends Thread{
 
     public static void sendMessageToAllControllers(String message){
 
-        for (ConnectionThread connection: new ArrayList<>(connectionThreadList)) {
+        for (ClientConnection connection: new ArrayList<>(connectionThreadList)) {
 
             if (connection.connectionType.equals("controller"))
                 connection.output.println(message);
@@ -69,9 +70,9 @@ public class HostConnection extends Thread{
 
     }
 
-    public static ConnectionThread getConnectionInList(String name){
+    public static ClientConnection getConnectionInList(String name){
 
-        for (ConnectionThread connection: new ArrayList<>(connectionThreadList)) {
+        for (ClientConnection connection: new ArrayList<>(connectionThreadList)) {
 
                 if (connection.getName().equals(name))
                     return  connection;
@@ -82,11 +83,11 @@ public class HostConnection extends Thread{
 
     public void validateConnection(Socket s){
 
-        for (ConnectionThread connection: new ArrayList<>(connectionThreadList)) {
+        for (ClientConnection connection: new ArrayList<>(connectionThreadList)) {
 
             if(connection.getName().equals(s.getInetAddress().toString().split("/")[1])){
 
-                HostCommandFrame.me.logText("["+connection+"] already connected!","aa4409");
+                MotherTerminalFrame.me.logText("["+connection+"] already connected!","aa4409");
                 connection.stopThread = true;
 
                 while(connection.isRunning){

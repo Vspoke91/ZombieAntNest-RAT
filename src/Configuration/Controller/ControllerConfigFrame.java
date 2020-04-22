@@ -1,12 +1,11 @@
-package Intro.Java.Controller;
+package Configuration.Controller;
 
-import Controller.Java.ControllerCommandFrame;
-import Intro.Java.ConnectionTypeFrame;
-import Intro.Java.Main;
+import Controller.Terminal.ControllerTerminalFrame;
+import Configuration.MenuConfigFrame;
+import Main.Main;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -41,25 +40,22 @@ public class ControllerConfigFrame {
 
     public void initialize() throws FileNotFoundException {
 
-            showErrorMessage("testing",0);
+        error_label.setVisible(false);
 
-            ArrayList<String> settings = readSettings("src/Intro/Java/Controller/ControllerSettings.txt");
+        ArrayList<String> settings = readSettings();
 
-            if(Boolean.parseBoolean(settings.get(2).split(" ")[1])) {
+        if(Boolean.parseBoolean(settings.get(2))) {
 
-                hostIP_textField.setText(settings.get(0).split(" ")[1]);
-                port_textField.setText(settings.get(1).split(" ")[1]);
-                save_checkBox.setSelected(true);
-            }
+            hostIP_textField.setText(settings.get(0));
+            port_textField.setText(settings.get(1));
+            save_checkBox.setSelected(true);
+        }
     }
 
     public void startConnection() {
 
-        Main.ip = hostIP_textField.getText();
-        Main.port = Integer.parseInt(port_textField.getText());
-
         connect_button.setDisable(true);
-        connect_button.setText("Checking host");
+        connect_button.setText("Connecting...");
 
         new Thread(() -> {
 
@@ -69,14 +65,17 @@ public class ControllerConfigFrame {
                 Socket socket = new Socket();
                 socket.connect(new InetSocketAddress(hostIP_textField.getText(), Integer.parseInt(port_textField.getText())), 1000);
 
-                ControllerCommandFrame.connection = socket;
+                Main.ip = hostIP_textField.getText();//TODO get ip from socket like port did.
+                Main.port = socket.getPort();
+                ControllerTerminalFrame.connection = socket;
 
                 Platform.runLater(() -> {
                     stage.hide();
 
                     try {
-                        ControllerConfigFrame.makeFrame(FXMLLoader.load(getClass().getResource("../../../Controller/FX/ControllerCommandFrame.fxml")));
+                        ControllerTerminalFrame.makeFrame();
                     } catch (IOException e) { e.printStackTrace(); }
+
                 });
 
             } catch (IOException e) {
@@ -91,7 +90,7 @@ public class ControllerConfigFrame {
     public void backAction(){
 
         stage.hide();
-        ConnectionTypeFrame.stage.show();
+        MenuConfigFrame.stage.show();
     }
 
     public void showErrorMessage(String message, int seconds){
@@ -108,24 +107,26 @@ public class ControllerConfigFrame {
         }).start();
     }
 
-    public ArrayList<String> readSettings(String file) throws FileNotFoundException {
+    public ArrayList<String> readSettings() throws FileNotFoundException {
 
         ArrayList <String> settings = new ArrayList<>();
-        Scanner scanner = new Scanner(new File(file));
+        Scanner scanner = new Scanner(new File("src/Configuration/Controller/SaveSettings.txt"));
 
         while(scanner.hasNextLine()){
 
-            settings.add(scanner.nextLine());
+            settings.add(scanner.nextLine().split("=")[1].trim());
         }
 
         return settings;
     }
 
-    public static void makeFrame(Parent load){
+    public static void makeFrame() throws IOException {
 
         stage = new Stage();
-        stage.setTitle("ZAN - Controller Config");
-        stage.setScene(new Scene(load, 300, 275));
+
+        stage.setTitle("Controller Config");
+        stage.setScene(new Scene(FXMLLoader.load(ControllerConfigFrame.class.getResource("ControllerConfigFrame.fxml")), 300, 275));
+
         stage.show();
     }
 }
