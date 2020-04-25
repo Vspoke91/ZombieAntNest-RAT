@@ -87,7 +87,10 @@
                                                 <Label text="Device">
                                                    <VBox.margin>
                                                       <Insets bottom="20.0" top="20.0" />
-                                                   </VBox.margin></Label>
+                                                   </VBox.margin>
+                                                   <font>
+                                                      <Font size="18.0" />
+                                                   </font></Label>
                                                 <Button fx:id="flashlight_ButtonAction" mnemonicParsing="false" onAction="#flashlight_onAction" text="Flashlight: OFF">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
@@ -97,10 +100,13 @@
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin></Button>
-                                                <Button mnemonicParsing="false" text="Take Recording">
+                                                <Button mnemonicParsing="false" text="Start Video Recording">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin>
+                                                   <graphic>
+                                                      <TextField prefHeight="25.0" prefWidth="57.0" promptText="Minutes" />
+                                                   </graphic>
                                                 </Button>
                                              </children></VBox>
                                        </children></AnchorPane>
