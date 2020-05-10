@@ -36,15 +36,15 @@
                         <VBox prefHeight="84.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="235.0" text="Info" />
-                              <Label fx:id="targetIP_label" prefHeight="17.0" prefWidth="195.0" text="IP: -.-" VBox.vgrow="ALWAYS">
+                              <Label fx:id="selectedIP_label" prefHeight="17.0" prefWidth="195.0" text="IP: -.-" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin></Label>
-                              <Label fx:id="targetConnectionType_label" prefHeight="17.0" prefWidth="164.0" text="Connection: -.-" VBox.vgrow="ALWAYS">
+                              <Label fx:id="selectedConnectionType_label" prefHeight="17.0" prefWidth="164.0" text="Connection: -.-" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin></Label>
-                              <Label fx:id="targetDeviceType_label" prefHeight="17.0" prefWidth="172.0" text="Device: -.-" VBox.vgrow="ALWAYS" />
+                              <Label fx:id="selectedDeviceType_label" prefHeight="17.0" prefWidth="172.0" text="Device: -.-" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">

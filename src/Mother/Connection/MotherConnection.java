@@ -2,29 +2,30 @@ package Mother.Connection;
 
 import Mother.Terminal.MotherTerminalFrame;
 import Main.Main;
+import Utilities.Child.Target;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+
+import static Utilities.Child.Child.Type.CONTROLLER;
+import static Utilities.Child.Child.Type.TARGET;
 
 public class MotherConnection extends Thread{
 
     private Socket s;
     private ServerSocket ss;
 
-    private volatile boolean stop;
+    private volatile boolean stop = false;
     public static ArrayList<ClientConnection> connectionThreadList = new ArrayList<>();
 
     public MotherConnection(){
 
-        stop = false;
-
-        MotherTerminalFrame.me.logText("Welcome!\nServer is starting....","19b386");
-
         try { ss = new ServerSocket(Main.port); } catch (IOException e) { e.printStackTrace(); }
 
-        MotherTerminalFrame.me.logText("Server Ready and listening :)","19b386");
+        MotherTerminalFrame.me.logText("Server Up and Ready!","#009933");
 
         start();
     }
@@ -38,8 +39,10 @@ public class MotherConnection extends Thread{
                 s = ss.accept();
 
                 new Thread(() -> {
+
                     validateConnection(s);
                     connectionThreadList.add(new ClientConnection(s));
+
                 }).start();
 
             } catch (IOException e) {
@@ -49,12 +52,45 @@ public class MotherConnection extends Thread{
         }
     }
 
+    public static ArrayList<ClientConnection> getControllers(){
+
+        ArrayList<ClientConnection> list = new ArrayList<>();
+
+        for (ClientConnection client : connectionThreadList)
+            if (client.info.type == CONTROLLER)
+                list.add(client);
+
+        return list;
+    }
+
+    public static ArrayList<ClientConnection> getTargets(){
+
+        ArrayList<ClientConnection> list = new ArrayList<>();
+
+        for (ClientConnection client : connectionThreadList)
+            if (client.info.type == TARGET)
+                list.add(client);
+
+        return list;
+    }
+
+    public static void sendAllTargetIPs(PrintWriter output){
+
+        for (ClientConnection connection: MotherConnection.getTargets()) {
+
+            Target target = (Target) connection.info;
+
+            output.println("you-"+ connection.getName() +"-addTarget"); //addTarget
+
+            target.sendAllInfo(output);
+        }
+    }
+
     public static void sendMessageToAllControllers(String message){
 
-        for (ClientConnection connection: new ArrayList<>(connectionThreadList)) {
+        for (ClientConnection client: getControllers()) {
 
-            if (connection.connectionType.equals("controller"))
-                connection.output.println(message);
+                client.output.println(message);
         }
 
     }
@@ -63,7 +99,7 @@ public class MotherConnection extends Thread{
 
         String totalMessage = "";
 
-        for (int i = 1; i < message.length; i++)
+        for (int i = 1; i < message.length; i++)//this has to be done because the message deletes all the '-'
             totalMessage += "-"+message[i];
 
         getConnectionInList(name).output.println("you"+totalMessage);
@@ -72,15 +108,16 @@ public class MotherConnection extends Thread{
 
     public static ClientConnection getConnectionInList(String name){
 
-        for (ClientConnection connection: new ArrayList<>(connectionThreadList)) {
+        for (ClientConnection connection: connectionThreadList) {
 
                 if (connection.getName().equals(name))
-                    return  connection;
+                    return connection;
         }
 
         return null;
     }
 
+    //TODO this is not working check for in-net (local ip) and public ip to see if they are different
     public void validateConnection(Socket s){
 
         for (ClientConnection connection: new ArrayList<>(connectionThreadList)) {

@@ -7,6 +7,9 @@ import Controller.Terminal.ControllerTerminalFrame;
 import Mother.Connection.ClientConnection;
 import Mother.Connection.MotherConnection;
 import Main.Main;
+import Utilities.Child.Child;
+import Utilities.Child.Controller;
+import Utilities.Child.Target;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -29,11 +32,11 @@ public class MotherTerminalFrame {
     public static Stage stage;
 
     public int connectionCounter;
-    public String target;
+    public ClientConnection selectedConnection;
 
-    @FXML Label targetIP_label;
-    @FXML Label targetDeviceType_label;
-    @FXML Label targetConnectionType_label;
+    @FXML Label selectedIP_label;
+    @FXML Label selectedDeviceType_label;
+    @FXML Label selectedConnectionType_label;
     @FXML Label ip_label;
     @FXML Label port_label;
     @FXML Label connectionCount_label;
@@ -52,30 +55,37 @@ public class MotherTerminalFrame {
         ip_label.setText("IP: "+ Main.ip);
         port_label.setText("Port: "+Main.port);
 
-        selectConnection_OnAction();
+        selectingTarget_Listener();
 
         new MotherConnection();
     }
 
-    public void selectConnection_OnAction(){
+    public void selectingTarget_Listener(){
 
-        ip_ListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+        ip_ListView.getSelectionModel().selectedItemProperty().addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
 
-                if (newValue != null){
+            if (newValue != null){
 
-                    if(newValue.startsWith("<") || newValue.startsWith(">"))
+                if(newValue.startsWith("<") || newValue.startsWith(">"))
 
-                        newValue = newValue.substring(1);
+                    newValue = newValue.substring(1);
 
-                    ClientConnection connection = MotherConnection.getConnectionInList(newValue);
+                selectedConnection = MotherConnection.getConnectionInList(newValue);
 
-                    target = connection.getName();
+                selectedIP_label.setText("IP: "+selectedConnection.info.ip);
+                selectedDeviceType_label.setText("OS: " + selectedConnection.info.os);
+                selectedConnectionType_label.setText("Type: " + selectedConnection.info.type);
 
-                    targetIP_label.setText("IP: "+connection.getName());
-                    targetDeviceType_label.setText("Device: "+connection.deviceType);
-                    targetConnectionType_label.setText("Connection: "+connection.connectionType);
+                if(selectedConnection.info.type == Child.Type.CONTROLLER){
+
+                    Controller controller = (Controller) selectedConnection.info;
+
+                    //TODO add more infomation to show.
+
+                } else if (selectedConnection.info.type == Child.Type.TARGET){
+
+                    Target target = (Target) selectedConnection.info;
+                    //TODO add more infomation to show.
                 }
             }
         });
@@ -85,8 +95,8 @@ public class MotherTerminalFrame {
     public void takeControl_OnAction() throws IOException {
 
         takeControl_Button.setDisable(true);
-        ControllerConnection.isLocal = true;
-        ControllerTerminalFrame.makeFrame();
+
+        ControllerTerminalFrame.makeFrame(true, null);
     }
 
     public void logText(String text, String color){
@@ -97,69 +107,66 @@ public class MotherTerminalFrame {
             textX.setFill(Color.web(color));
 
             log_ScrollPane.setVvalue(1);
-            // try/catch runs so it can be implemented with threads.
-            try {
 
-                log_textFlow.getChildren().add(textX);
-            }catch (java.lang.IllegalStateException e) {
-
-                Platform.runLater(() -> log_textFlow.getChildren().add(textX));
-            }
+            Platform.runLater(() -> log_textFlow.getChildren().add(textX));
         }
     }
 
     public void addConnection(String connection){
+
         connectionCounter++;
+
+        logText("["+connection+"] has connected!","2daa09");
 
         Platform.runLater(() -> ip_ListView.getItems().add(connection));
         Platform.runLater(() -> connectionCount_label.setText("Connections: "+connectionCounter));
+
     }
 
-    public void checkChange(String connection){
+    public void connectionAnimation(String client){
 
-        int index;
+        final int index;
 
-        if(ip_ListView.getItems().contains(connection))
-            index = ip_ListView.getItems().indexOf(connection);
+        if(ip_ListView.getItems().contains(client))
+            index = ip_ListView.getItems().indexOf(client);
 
-        else if(ip_ListView.getItems().contains(">"+connection))
-            index = ip_ListView.getItems().indexOf(">"+connection);
+        else if(ip_ListView.getItems().contains(">"+client))
+            index = ip_ListView.getItems().indexOf(">"+client);
 
-        else if(ip_ListView.getItems().contains("<"+connection))
-            index = ip_ListView.getItems().indexOf("<"+connection);
+        else if(ip_ListView.getItems().contains("<"+client))
+            index = ip_ListView.getItems().indexOf("<"+client);
         else
             index = -1;
 
-        if(ip_ListView.getItems().get(index).equals(">"+connection))
-            Platform.runLater(() -> ip_ListView.getItems().set(index,"<"+connection));
+        if(ip_ListView.getItems().get(index).equals(">"+client))
+            Platform.runLater(() -> ip_ListView.getItems().set(index,"<"+client));
         else
-            Platform.runLater(() -> ip_ListView.getItems().set(index,">"+connection));
+            Platform.runLater(() -> ip_ListView.getItems().set(index,">"+client));
     }
 
-    public void deleteConnection(String connection){
+    public void deleteConnection(String client){
 
         connectionCounter--;
 
-        int index;
+        final int index;
 
-        if(ip_ListView.getItems().contains(connection))
-            index = ip_ListView.getItems().indexOf(connection);
+        if(ip_ListView.getItems().contains(client))
+            index = ip_ListView.getItems().indexOf(client);
 
-        else if(ip_ListView.getItems().contains(">"+connection))
-            index = ip_ListView.getItems().indexOf(">"+connection);
+        else if(ip_ListView.getItems().contains(">"+client))
+            index = ip_ListView.getItems().indexOf(">"+client);
 
-        else if(ip_ListView.getItems().contains("<"+connection))
-            index = ip_ListView.getItems().indexOf("<"+connection);
+        else if(ip_ListView.getItems().contains("<"+client))
+            index = ip_ListView.getItems().indexOf("<"+client);
 
         else
             index = -1;
 
-        if( target != null &&target.equals(connection)){
+        if(selectedConnection != null && selectedConnection.getName().equals(client)){ // checks for null because selected can be null
 
-            Platform.runLater(() -> targetIP_label.setText("IP: -.-"));
-            Platform.runLater(() -> targetDeviceType_label.setText("Device: -.-"));
-            Platform.runLater(() -> targetConnectionType_label.setText("Connection: -.-"));
-
+            Platform.runLater(() -> selectedIP_label.setText("IP: -.-"));
+            Platform.runLater(() -> selectedDeviceType_label.setText("OS: -.-"));
+            Platform.runLater(() -> selectedConnectionType_label.setText("Type: -.-"));
         }
 
         Platform.runLater(() -> ip_ListView.getItems().remove(index));
@@ -177,7 +184,7 @@ public class MotherTerminalFrame {
 
         stage = new Stage();
 
-        stage.setTitle("Terminal");
+        stage.setTitle("Terminal - Mother");
         stage.setScene(new Scene(FXMLLoader.load(MotherTerminalFrame.class.getResource("MotherTerminalFrame.fxml")), 630, 400));
         stage.show();
     }

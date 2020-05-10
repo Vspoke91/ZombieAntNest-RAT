@@ -1,6 +1,9 @@
 package Mother.Connection;
 
 import Mother.Terminal.MotherTerminalFrame;
+import Utilities.Child.Child;
+import Utilities.Child.Controller;
+import Utilities.Child.Target;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,15 +15,10 @@ import java.util.ArrayList;
 public class ClientConnection extends Thread {
 
     public volatile boolean stopThread;
-    public volatile boolean isRunning;
     public volatile boolean isOnline;
     public volatile int checkCount;
 
-    public String connectionType;
-    public String deviceType;
-
-    public String internet;
-    public boolean flashlightState;
+    public Child info = null;
 
     private BufferedReader input;
     public PrintWriter output;
@@ -28,22 +26,18 @@ public class ClientConnection extends Thread {
     public ClientConnection(Socket socket){
 
         stopThread = false;
-        isRunning = true;
         isOnline = true;
 
         setName(socket.getRemoteSocketAddress().toString().split("/")[1]);
 
-        MotherTerminalFrame.me.logText("["+getName()+"] has connected!","2daa09");
         MotherTerminalFrame.me.addConnection(getName());
 
         try {
+
             input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
             output = new PrintWriter(socket.getOutputStream(), true); //sends message
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        MotherTerminalFrame.me.logText("["+getName()+"] ready to command .(+_+)>","0943aa");
+        } catch (IOException e) { e.printStackTrace(); }
 
         start();
     }
@@ -51,9 +45,9 @@ public class ClientConnection extends Thread {
     public void run() {
         super.run();
 
-        startConnectionTimer();
+        startConnectionTimer(2000);
 
-        while(!stopThread){
+        while(isOnline){
 
             try {
                 if(input.ready()) {
@@ -62,55 +56,47 @@ public class ClientConnection extends Thread {
 
                     String[] message = input.readLine().split("-");
 
-                    if(message[0].equals("host")){//to who
+                    if(message[0].equals("host")) {//to who
 
-                            switch(message[1]) {//what command
+                        switch (message[2]) {//what command
 
-                                case "check":
+                            case "check":
 
-                                    if (checkCount == 10) {
-                                        checkCount = 0;
-                                        MotherTerminalFrame.me.checkChange(getName());
-                                    }
+                                if (checkCount == 10) {
+                                    checkCount = 0;
+                                    MotherTerminalFrame.me.connectionAnimation(getName());
+                                }
 
-                                    checkCount++;
-                                    break;
+                                checkCount++;
+                                break;
 
-                                case "ct": //connection type
-                                    if (message[2].equals("controller")) {
+                            case "childType": //connection type
+                                if (message[3].equals("controller")) {
 
-                                        connectionType = "controller";
-                                        sendAllTargetIPs();
+                                    info = new Controller(getName());
+                                    MotherConnection.sendAllTargetIPs(output);
 
-                                    } else if (message[2].equals("target")) {
+                                } else if (message[3].equals("target")) {
 
-                                        connectionType = "target";
-                                        MotherConnection.sendMessageToAllControllers("you-adt-" + getName());
-                                    } else
-                                        connectionType = "null";
-                                        MotherTerminalFrame.me.logText("[" + getName() + "] was set to " + connectionType, "0943aa");
-                                    break;
+                                    info = new Target(getName());
+                                    MotherConnection.sendMessageToAllControllers("you-addTarget-" + getName());
 
-                                case "dt": //device type
-                                    if (connectionType.equals("target")) {
+                                } else
+                                    info = null;
 
-                                        deviceType = message[2];
-                                        MotherConnection.sendMessageToAllControllers("you-adti-" + getName() + "-dt-" + deviceType);
-                                    }
-                                    break;
+                                    MotherTerminalFrame.me.logText("[" + getName() + "] was set to "+ message[3], "0943aa");
 
-                                case "fls": //flashLight State
-                                    if(connectionType.equals("target")) {
+                                break;
+                            case "addTargetInfo":
+                                if(info != null)
+                                    info.setInfo(message);
+                                else
+                                    MotherTerminalFrame.me.logText("[" + getName() + "] was not set to a type", "0943aa");
+                                break;
+                        }
 
-                                        flashlightState = Boolean.valueOf(message[2]);
-                                        MotherConnection.sendMessageToAllControllers("you-adti-" + getName() + "-fls-" + flashlightState);
-                                    }
-                                    break;
-                            }
+                    } else {// when get a message not for host find the ip and send to that ip
 
-                    }
-
-                    else {// when get a message not for host find the ip and send to that ip
                         MotherConnection.sendMessageTo(message[0], message);
                         MotherTerminalFrame.me.logText("[" + getName() + "] send \"" + message[1]+"-"+message[2] + "\" to "+ message[0], "0943aa");
 
@@ -118,6 +104,7 @@ public class ClientConnection extends Thread {
 
                 }
             } catch (java.net.SocketException e) {
+
                 stopThread = true;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -128,11 +115,11 @@ public class ClientConnection extends Thread {
         MotherTerminalFrame.me.deleteConnection(getName());
 
         MotherConnection.connectionThreadList.remove(this);
-        MotherConnection.sendMessageToAllControllers("you-det-"+getName());
+        MotherConnection.sendMessageToAllControllers("you-"+getName()+"-removeTarget");
 
         MotherTerminalFrame.me.logText("["+getName()+"] has disconnected! ;(","aa4409");
 
-        isRunning = false;
+        isOnline = false;
     }
 
     public String toString(){
@@ -140,33 +127,20 @@ public class ClientConnection extends Thread {
         return getName();
     }
 
-    public void sendAllTargetIPs(){
-
-        for (ClientConnection connection: new ArrayList<>(MotherConnection.connectionThreadList)) {
-
-            if (connection.connectionType.equals("target")) {
-                output.println("you-adt-" + connection.getName()); //addTarget
-                output.println("you-adti-" + connection.getName() + "-dt-" + connection.deviceType);
-                output.println("you-adti-" + connection.getName() + "-fls-" + connection.flashlightState);
-            }
-        }
-    }
-
     //is set to disconnect if no data is going on both ends
-    public void startConnectionTimer(){
+    public void startConnectionTimer(int timer){
 
         new Thread(() -> {
             while(!stopThread) {
 
-                try { synchronized (this) { wait(2000); }} catch (InterruptedException e) { e.printStackTrace(); }
+                try { synchronized (this) { wait(timer); }} catch (InterruptedException e) { e.printStackTrace(); }
 
                 if (isOnline)
-
                     isOnline = false;
-                else {
 
+                else
                     stopThread = true;
-                }
+
             }
         }).start();
 

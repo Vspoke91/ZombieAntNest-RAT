@@ -1,45 +1,46 @@
 package Utilities.Child;
 
 import Controller.Terminal.ControllerTerminalFrame;
-import Utilities.Child.Child;
+import Mother.Connection.MotherConnection;
 import javafx.application.Platform;
+
+import java.io.PrintWriter;
 
 public class Target extends Child {
 
     public String internet;
-    public String deviceType;
-    public boolean flashlightState;
+    public boolean isFlashlightOn;
 
-    public Target(String name){
+    public Target(String ip){
 
-        this.ip = name;
-
+        this.ip = ip;
+        this.type = Type.TARGET;
     }
 
-    public void addTargetInfo(String field, String state){
+    public void setInfo(String[] message){
 
-        switch (field){
+        switch (message[3]){
 
-            case "int": //internet
-                internet = state;
+            case "internet": //internet
+
+                internet = message[4];
                 break;
 
-            case "fls": //flashlightState
-                flashlightState = Boolean.valueOf(state);
+            case "flashLightState": //flashlightState
 
-                if(flashlightState)
-                    Platform.runLater(() -> ControllerTerminalFrame.me.flashLight_button.setText("FlashLight: ON"));
-
-                else
-                    Platform.runLater(() -> ControllerTerminalFrame.me.flashLight_button.setText("FlashLight: OFF"));
-
+                isFlashlightOn = Boolean.valueOf(message[4]);
+                MotherConnection.sendMessageToAllControllers("you-"+ ip +"-addTargetInfo-flashLightState-" + isFlashlightOn);
                 break;
 
-            case "dt": //Device Type
-                deviceType = state;
+            case "os":
+                os = message[4];
                 break;
-
         }
+    }
 
+    public void sendAllInfo(PrintWriter output){
+
+        output.println("you-" + ip + "-addTargetInfo-os-" + os);
+        output.println("you-" + ip + "-addTargetInfo-flashLightState-" + isFlashlightOn);
     }
 }

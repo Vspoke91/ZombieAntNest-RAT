@@ -16,6 +16,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.net.Socket;
 
@@ -23,10 +24,10 @@ public class ControllerTerminalFrame {
 
     public static ControllerTerminalFrame me;
     public static Stage stage;
-    public static Socket connection;
+    public static Socket myConnection;
     public static ControllerConnection controllerConnection;
-
-    public static Target target;
+    public Target target;
+    public static boolean isLocalConnection = false;
 
     @FXML Label target_label;
     @FXML Label hostIP_label;
@@ -37,7 +38,7 @@ public class ControllerTerminalFrame {
     @FXML Label targetInternet_label;
     @FXML Label targetDeviceType_label;
 
-    @FXML public Button flashLight_button;
+    @FXML Button flashLight_button;
     @FXML Tab device_tab;
     @FXML Tab commands_tab;
 
@@ -55,10 +56,7 @@ public class ControllerTerminalFrame {
 
         selectTarget_OnAction();
 
-        if(connection == null)
-            controllerConnection = new ControllerConnection();
-        else
-            controllerConnection = new ControllerConnection(connection);
+        controllerConnection = new ControllerConnection(isLocalConnection, myConnection);
 
     }
 
@@ -76,7 +74,7 @@ public class ControllerTerminalFrame {
                 target_label.setText("Target: "+target.ip);
                 targetIP_label.setText("IP: "+target.ip);
                 targetInternet_label.setText("Internet: "+target.internet);
-                targetDeviceType_label.setText("Device Type: "+target.deviceType);
+                targetDeviceType_label.setText("OS: "+ target.os);
 
             }
         });
@@ -85,10 +83,10 @@ public class ControllerTerminalFrame {
 
     public void flashlight_ButtonAction(){
 
-        if(target.flashlightState)
-            controllerConnection.sendMessageTo(target.ip,"sfst","false");
+        if(target.isFlashlightOn)
+            controllerConnection.sendMessageTo(target.ip,"setFlashLight","false");
         else
-            controllerConnection.sendMessageTo(target.ip,"sfst","true");
+            controllerConnection.sendMessageTo(target.ip,"setFlashLight","true");
     }
 
     public void addTarget(String target){
@@ -109,11 +107,23 @@ public class ControllerTerminalFrame {
         }
     }
 
-    public static void makeFrame() throws IOException {
+    public void flashLightButtonChange(boolean state){
+
+        if (state)
+            Platform.runLater(() -> flashLight_button.setText("FlashLight: ON"));
+        else
+            Platform.runLater(() -> flashLight_button.setText("FlashLight: OFF"));
+
+    }
+
+    public static void makeFrame(boolean makeLocalConnection, Socket connection) throws IOException {
+
+        isLocalConnection = makeLocalConnection;
+        myConnection = connection;
 
         stage = new Stage();
 
-        stage.setTitle("Controller");
+        stage.setTitle("Terminal - Controller");
         stage.setScene(new Scene(FXMLLoader.load(ControllerTerminalFrame.class.getResource("ControllerTerminalFrame.fxml")), 630, 400));
 
         stage.show();

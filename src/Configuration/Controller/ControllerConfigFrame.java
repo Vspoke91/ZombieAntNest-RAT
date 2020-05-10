@@ -67,13 +67,12 @@ public class ControllerConfigFrame {
 
                 Main.ip = hostIP_textField.getText();//TODO get ip from socket like port did.
                 Main.port = socket.getPort();
-                ControllerTerminalFrame.connection = socket;
 
                 Platform.runLater(() -> {
                     stage.hide();
 
                     try {
-                        ControllerTerminalFrame.makeFrame();
+                        ControllerTerminalFrame.makeFrame(false, socket);
                     } catch (IOException e) { e.printStackTrace(); }
 
                 });

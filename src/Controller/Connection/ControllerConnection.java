@@ -17,37 +17,24 @@ public class ControllerConnection extends Thread{
 
     public static ControllerConnection me;
 
-    public static boolean isLocal = false;
-
     private Socket socket;
     private BufferedReader input;
     private PrintWriter output;
 
     public static List<Target> targetList = new ArrayList<>();
 
-    public ControllerConnection(){
+    public ControllerConnection(boolean makeLocalConnection, Socket socket) {
         //"68.98.164.176"
         me = this;
 
         try {
-            if(isLocal)
-                socket = new Socket("localhost", Main.port);
-            else
-                socket = new Socket(Main.ip, Main.port);
-
-            input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
-            output = new PrintWriter(socket.getOutputStream(), true); //sends message
-
-        } catch (IOException e) { e.printStackTrace(); }
-
-        start();
-    }
-
-    public ControllerConnection(Socket connection) {
-
-        socket = connection;
-
-        try {
+            if (socket == null) {
+                if (makeLocalConnection)
+                    socket = new Socket("localhost", Main.port);
+                else
+                    socket = new Socket(Main.ip, Main.port);
+            } else
+                this.socket = socket;
 
             input = new BufferedReader(new InputStreamReader(socket.getInputStream())); //reads message
             output = new PrintWriter(socket.getOutputStream(), true); //sends message
@@ -62,15 +49,15 @@ public class ControllerConnection extends Thread{
     public void run() {
         super.run();
 
-        output.println("host-ct-controller");
-        output.println("host-dt-"+System.getProperty("os.name"));
+        output.println("host-myIP-childType-controller");
+        output.println("host-myIP-addTargetInfo-os-"+System.getProperty("os.name"));
 
         //starts a check thread to make sure it does not delay
         new Thread(() -> {
 
             while (true) {
 
-                output.println("host-check");
+                output.println("host-myIP-check");
 
                 try {
                     sleep(200);
@@ -90,18 +77,21 @@ public class ControllerConnection extends Thread{
 
                     if(message[0].equals("you")){//to who
 
-                        switch(message[1]) {//what command
+                        switch(message[2]) {//what command
 
-                            case "adt": //add Target
-                                addTarget(message[2]);
+                            case "addTarget": //add Target
+
+                                addTarget(message[1]);
                                 break;
 
-                            case "det": //remove Target
-                                deleteTarget(message[2]);
+                            case "removeTarget": //remove Target
+
+                                deleteTarget(message[1]);
                                 break;
 
-                            case "adti": //add target info
-                                getTargetInList(message[2]).addTargetInfo(message[3], message[4]);
+                            case "addTargetInfo": //add target info
+
+                                getTargetInList(message[1]).setInfo(message);
                                 break;
                         }
 

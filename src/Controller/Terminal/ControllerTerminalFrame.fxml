@@ -91,7 +91,7 @@
                                                    <font>
                                                       <Font size="18.0" />
                                                    </font></Label>
-                                                <Button fx:id="flashlight_ButtonAction" mnemonicParsing="false" onAction="#flashlight_onAction" text="Flashlight: OFF">
+                                                <Button fx:id="flashLight_button" mnemonicParsing="false" onAction="#flashlight_ButtonAction" text="Flashlight: OFF">
                                                    <VBox.margin>
                                                       <Insets bottom="10.0" />
                                                    </VBox.margin>
