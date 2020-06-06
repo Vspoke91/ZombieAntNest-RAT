@@ -47,7 +47,7 @@ public class ClientConnection extends Thread {
 
         startConnectionTimer(2000);
 
-        while(isOnline){
+        while(isOnline || !stopThread){
 
             try {
                 if(input.ready()) {

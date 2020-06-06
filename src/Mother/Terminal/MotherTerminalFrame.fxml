@@ -11,23 +11,30 @@
          <children>
             <HBox maxHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
-                  <Button fx:id="takeControl_Button" minHeight="-Infinity" mnemonicParsing="false" onAction="#takeControl_OnAction" prefHeight="30.0" prefWidth="84.0" text="Take Control" />
-                  <Label fx:id="ip_label" maxHeight="-Infinity" prefHeight="30.0" text="IP: NULL" HBox.hgrow="ALWAYS">
+                  <Button fx:id="takeControl_Button" maxHeight="1.7976931348623157E308" minHeight="-Infinity" mnemonicParsing="false" onAction="#takeControl_OnAction" text="Take Control" />
+                  <Label fx:id="ip_label" maxHeight="1.7976931348623157E308" text="IP: NULL" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="port_label" maxHeight="-Infinity" prefHeight="30.0" text="Port: NULL" HBox.hgrow="ALWAYS">
+                  <Label fx:id="port_label" maxHeight="1.7976931348623157E308" text="Port: NULL" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
-                  <Label fx:id="connectionCount_label" maxHeight="-Infinity" prefHeight="30.0" text="Connections: 0" HBox.hgrow="ALWAYS">
+                  <Label fx:id="connectionCount_label" maxHeight="1.7976931348623157E308" text="Connections: 0" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin>
                   </Label>
+                  <Label fx:id="pablo_label" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" prefWidth="30.0" text="[=-=]">
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin></Label>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
             <HBox prefHeight="334.0" prefWidth="600.0" VBox.vgrow="ALWAYS">
                <children>
@@ -36,15 +43,15 @@
                         <VBox prefHeight="84.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="235.0" text="Info" />
-                              <Label fx:id="selectedIP_label" prefHeight="17.0" prefWidth="195.0" text="IP: -.-" VBox.vgrow="ALWAYS">
+                              <Label fx:id="selectedIP_label" prefHeight="17.0" prefWidth="195.0" text="IP: ----" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin></Label>
-                              <Label fx:id="selectedConnectionType_label" prefHeight="17.0" prefWidth="164.0" text="Connection: -.-" VBox.vgrow="ALWAYS">
+                              <Label fx:id="selectedConnectionType_label" prefHeight="17.0" prefWidth="164.0" text="Connection: ----" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin></Label>
-                              <Label fx:id="selectedDeviceType_label" prefHeight="17.0" prefWidth="172.0" text="Device: -.-" VBox.vgrow="ALWAYS" />
+                              <Label fx:id="selectedDeviceType_label" prefHeight="17.0" prefWidth="172.0" text="Device: ----" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">

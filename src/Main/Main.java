@@ -10,7 +10,7 @@ public class Main extends Application {
 
     public static Main me;
 
-    public static String ip;  //this is used to store mothers ip if you are mother then it stores yours.
+    public static String ip;  //this is used to store mothers ip if you are mother then it stores yours. [0.0]
     public static int port;
 
     public Main(){ me = this; }

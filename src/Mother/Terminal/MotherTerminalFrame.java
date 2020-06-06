@@ -14,6 +14,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -34,6 +36,7 @@ public class MotherTerminalFrame {
     public int connectionCounter;
     public ClientConnection selectedConnection;
 
+    @FXML Label pablo_label;
     @FXML Label selectedIP_label;
     @FXML Label selectedDeviceType_label;
     @FXML Label selectedConnectionType_label;
@@ -55,9 +58,39 @@ public class MotherTerminalFrame {
         ip_label.setText("IP: "+ Main.ip);
         port_label.setText("Port: "+Main.port);
 
+        stage.setOnCloseRequest(event -> { System.exit(0); });
+
+        startPabloAnimation();
         selectingTarget_Listener();
 
         new MotherConnection();
+    }
+
+    public void startPabloAnimation(){
+
+        new Thread(() -> {
+
+            while(true){
+
+                Platform.runLater(() -> pablo_label.setText("[o.o]"));
+
+                try { synchronized (this) { wait(6000); }} catch (InterruptedException e) { e.printStackTrace(); }
+
+                Platform.runLater(() -> pablo_label.setText("[-.o]"));
+
+                try { synchronized (this) { wait(1000); }} catch (InterruptedException e) { e.printStackTrace(); }
+
+                Platform.runLater(() -> pablo_label.setText("[o.o]"));
+
+                try { synchronized (this) { wait(6000); }} catch (InterruptedException e) { e.printStackTrace(); }
+
+                Platform.runLater(() -> pablo_label.setText("[o.+]"));
+
+                try { synchronized (this) { wait(1000); }} catch (InterruptedException e) { e.printStackTrace(); }
+            }
+
+        }).start();
+
     }
 
     public void selectingTarget_Listener(){
@@ -164,9 +197,9 @@ public class MotherTerminalFrame {
 
         if(selectedConnection != null && selectedConnection.getName().equals(client)){ // checks for null because selected can be null
 
-            Platform.runLater(() -> selectedIP_label.setText("IP: -.-"));
-            Platform.runLater(() -> selectedDeviceType_label.setText("OS: -.-"));
-            Platform.runLater(() -> selectedConnectionType_label.setText("Type: -.-"));
+            Platform.runLater(() -> selectedIP_label.setText("IP: ----"));
+            Platform.runLater(() -> selectedDeviceType_label.setText("OS: ----"));
+            Platform.runLater(() -> selectedConnectionType_label.setText("Type: ----"));
         }
 
         Platform.runLater(() -> ip_ListView.getItems().remove(index));
@@ -176,6 +209,51 @@ public class MotherTerminalFrame {
     //when a command is enter
     public void onEnter(ActionEvent event){
 
+        String command = command_textField.getText();
+
+        command_textField.setText("");
+
+        if(command.trim().length() != 0){
+
+            switch (command.toLowerCase()){
+
+                case("clear"):
+
+                    log_textFlow.getChildren().clear();
+                    logText("Logs cleared...","#00b377");
+
+                    break;
+
+                case("exit"):
+
+                    System.exit(0);
+
+                    break;
+
+
+                 /*   TODO: Restart Does not work.
+                case("restart"):
+
+                    stage.hide();
+
+                    MotherConnection.stop = true;
+                    MotherConnection.makeFakeConnection();
+
+                    MenuConfigFrame.stage.show();
+
+                    break;
+
+                  */
+
+                default:
+
+                    logText("Command '"+command+"' not found!","#00b377");
+
+                    break;
+
+            }
+
+        }
 
 
     }

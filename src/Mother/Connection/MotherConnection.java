@@ -3,9 +3,11 @@ package Mother.Connection;
 import Mother.Terminal.MotherTerminalFrame;
 import Main.Main;
 import Utilities.Child.Target;
+import javafx.application.Platform;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -18,20 +20,20 @@ public class MotherConnection extends Thread{
     private Socket s;
     private ServerSocket ss;
 
-    private volatile boolean stop = false;
+    public static volatile boolean stop = false;
     public static ArrayList<ClientConnection> connectionThreadList = new ArrayList<>();
 
     public MotherConnection(){
 
         try { ss = new ServerSocket(Main.port); } catch (IOException e) { e.printStackTrace(); }
 
-        MotherTerminalFrame.me.logText("Server Up and Ready!","#009933");
-
         start();
     }
 
     public void run() {
         super.run();
+
+        MotherTerminalFrame.me.logText("Server Up and Ready!","#009933");
 
         while(!stop){
             try {
@@ -40,7 +42,7 @@ public class MotherConnection extends Thread{
 
                 new Thread(() -> {
 
-                    validateConnection(s);
+                    //validateConnection(s);
                     connectionThreadList.add(new ClientConnection(s));
 
                 }).start();
@@ -48,8 +50,14 @@ public class MotherConnection extends Thread{
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
         }
+
+        Platform.runLater(() -> MotherTerminalFrame.me.logText("Server Down!!!", "ff0000"));
+
+        try {
+            s.close();
+            ss.close();
+        } catch (IOException e) { e.printStackTrace(); }
     }
 
     public static ArrayList<ClientConnection> getControllers(){
@@ -72,6 +80,16 @@ public class MotherConnection extends Thread{
                 list.add(client);
 
         return list;
+    }
+
+    public static void makeFakeConnection(){
+
+        new Thread(() -> {
+
+            try { new Socket("localhost",Main.port); } catch (IOException e) { e.printStackTrace(); }
+
+        }).start();
+
     }
 
     public static void sendAllTargetIPs(PrintWriter output){
@@ -117,7 +135,7 @@ public class MotherConnection extends Thread{
         return null;
     }
 
-    //TODO this is not working check for in-net (local ip) and public ip to see if they are different
+    /* TODO this is not working check for in-net (local ip) and public ip to see if they are different
     public void validateConnection(Socket s){
 
         for (ClientConnection connection: new ArrayList<>(connectionThreadList)) {
@@ -134,6 +152,7 @@ public class MotherConnection extends Thread{
             }
         }
     }
+    */
 
 
 }
