@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ZombieAntNest-RAT.iml" filepath="$PROJECT_DIR$/ZombieAntNest-RAT.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ZombieAntNest-RAT.iml" filepath="$PROJECT_DIR$/.idea/ZombieAntNest-RAT.iml" />
     </modules>
   </component>
 </project>

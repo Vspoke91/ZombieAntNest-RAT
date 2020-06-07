@@ -125,13 +125,6 @@ public class MotherTerminalFrame {
 
     }
 
-    public void takeControl_OnAction() throws IOException {
-
-        takeControl_Button.setDisable(true);
-
-        ControllerTerminalFrame.makeFrame(true, null);
-    }
-
     public void logText(String text, String color){
 
         if(text.trim().length() != 0) {
@@ -227,6 +220,18 @@ public class MotherTerminalFrame {
                 case("exit"):
 
                     System.exit(0);
+
+                    break;
+
+                case("tcontrol"):
+
+                    try {
+
+                        logText("Starting up local controller!","#00b377");
+
+                        ControllerTerminalFrame.makeFrame(true, null);
+
+                    } catch (IOException e) { e.printStackTrace(); }
 
                     break;
 
