@@ -30,6 +30,7 @@ import java.io.IOException;
 
 public class MotherTerminalFrame {
 
+
     public static MotherTerminalFrame me;
     public static Stage stage;
 
