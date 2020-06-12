@@ -11,7 +11,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -98,6 +100,7 @@ public class MenuConfigFrame {
 
         stage = new Stage();
 
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("ZAN-RAT Menu");
         stage.setScene(new Scene(FXMLLoader.load(MenuConfigFrame.class.getResource("MenuConfigFrame.fxml")), 300, 300));
 

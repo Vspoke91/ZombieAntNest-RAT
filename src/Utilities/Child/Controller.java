@@ -11,14 +11,12 @@ public class Controller extends Child {
     @Override
     public void setInfo(String[] message) {
 
-        switch (message[1]) {
+        switch (message[2]) {
 
             case "os": //internet
 
-                os = message[2];
+                os = message[3];
                 break;
-
-
         }
     }
 }

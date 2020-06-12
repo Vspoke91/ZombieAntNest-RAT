@@ -26,7 +26,7 @@ public class ControllerTerminalFrame {
     public static Stage stage;
     public static Socket myConnection;
     public static ControllerConnection controllerConnection;
-    public Target target;
+    public static Target target;
     public static boolean isLocalConnection = false;
 
     @FXML Label target_label;
@@ -76,6 +76,13 @@ public class ControllerTerminalFrame {
                 targetInternet_label.setText("Internet: "+target.internet);
                 targetDeviceType_label.setText("OS: "+ target.os);
 
+                updateTargetInfo();
+
+            }else{
+
+                Platform.runLater(() -> device_tab.setDisable(true));
+                Platform.runLater(() -> commands_tab.setDisable(true));
+                Platform.runLater(() -> target_label.setText("Target: None :c"));
             }
         });
 
@@ -97,22 +104,14 @@ public class ControllerTerminalFrame {
     public void deleteTarget(String target){
 
         Platform.runLater(() -> target_listView.getItems().remove(target));
-
-        if(target.equals(this.target.ip)){
-
-            Platform.runLater(() -> device_tab.setDisable(true));
-            Platform.runLater(() -> commands_tab.setDisable(true));
-            Platform.runLater(() -> target_label.setText("Target: None :c"));
-
-        }
     }
 
-    public void flashLightButtonChange(boolean state){
+    public void updateTargetInfo(){
 
-        if (state)
-            Platform.runLater(() -> flashLight_button.setText("FlashLight: ON"));
+        if (target.isFlashlightOn)
+            Platform.runLater(() -> flashLight_button.setText("Flashlight: ON"));
         else
-            Platform.runLater(() -> flashLight_button.setText("FlashLight: OFF"));
+            Platform.runLater(() -> flashLight_button.setText("Flashlight: OFF"));
 
     }
 

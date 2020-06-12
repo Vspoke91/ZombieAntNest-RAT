@@ -4,7 +4,9 @@ import Mother.Terminal.MotherTerminalFrame;
 import Utilities.Child.Child;
 import Utilities.Child.Controller;
 import Utilities.Child.Target;
+import javafx.application.Platform;
 
+import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -53,12 +55,13 @@ public class ClientConnection extends Thread {
                 if(input.ready()) {
 
                     isOnline = true; //is used to reset timer
+                    MotherTerminalFrame.me.addDataCount();
 
                     String[] message = input.readLine().split("-");
 
                     if(message[0].equals("host")) {//to who
 
-                        switch (message[2]) {//what command
+                        switch (message[1]) {//command
 
                             case "check":
 
@@ -71,12 +74,12 @@ public class ClientConnection extends Thread {
                                 break;
 
                             case "childType": //connection type
-                                if (message[3].equals("controller")) {
+                                if (message[2].equals("controller")) {
 
                                     info = new Controller(getName());
                                     MotherConnection.sendAllTargetIPs(output);
 
-                                } else if (message[3].equals("target")) {
+                                } else if (message[2].equals("target")) {
 
                                     info = new Target(getName());
                                     MotherConnection.sendMessageToAllControllers("you-addTarget-" + getName());
@@ -84,14 +87,35 @@ public class ClientConnection extends Thread {
                                 } else
                                     info = null;
 
-                                    MotherTerminalFrame.me.logText("[" + getName() + "] was set to "+ message[3], "0943aa");
+                                 MotherTerminalFrame.me.logText("[" + getName() + "] was set to "+ message[2], "0943aa");
 
                                 break;
+
                             case "addTargetInfo":
-                                if(info != null)
+
                                     info.setInfo(message);
-                                else
-                                    MotherTerminalFrame.me.logText("[" + getName() + "] was not set to a type", "0943aa");
+
+                                    String newMessage = "";
+
+                                    for (String text: message) {
+
+                                        if(text.equals("myIP"))
+                                            newMessage += getName()+"-";
+                                        else if (text.equals("host"))
+                                            newMessage += "you-";
+                                        else
+                                            newMessage += text+"-";
+
+                                    }
+
+                                    MotherConnection.sendMessageToAllControllers(newMessage);
+
+                                break;
+
+                            case "addControllerInfo":
+
+                                info.setInfo(message);
+
                                 break;
                         }
 
@@ -115,7 +139,7 @@ public class ClientConnection extends Thread {
         MotherTerminalFrame.me.deleteConnection(getName());
 
         MotherConnection.connectionThreadList.remove(this);
-        MotherConnection.sendMessageToAllControllers("you-"+getName()+"-removeTarget");
+        MotherConnection.sendMessageToAllControllers("you-removeTarget-"+getName());
 
         MotherTerminalFrame.me.logText("["+getName()+"] has disconnected! ;(","aa4409");
 

@@ -34,6 +34,7 @@ public class MotherConnection extends Thread{
         super.run();
 
         MotherTerminalFrame.me.logText("Server Up and Ready!","#009933");
+        MotherTerminalFrame.me.startDataCounter();
 
         while(!stop){
             try {
@@ -98,7 +99,7 @@ public class MotherConnection extends Thread{
 
             Target target = (Target) connection.info;
 
-            output.println("you-"+ connection.getName() +"-addTarget"); //addTarget
+            output.println("you-addTarget-"+connection.getName()); //addTarget
 
             target.sendAllInfo(output);
         }

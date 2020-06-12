@@ -49,15 +49,15 @@ public class ControllerConnection extends Thread{
     public void run() {
         super.run();
 
-        output.println("host-myIP-childType-controller");
-        output.println("host-myIP-addTargetInfo-os-"+System.getProperty("os.name"));
+        output.println("host-childType-controller");
+        output.println("host-addControllerInfo-os-"+System.getProperty("os.name"));//TODO checking this later
 
         //starts a check thread to make sure it does not delay
         new Thread(() -> {
 
             while (true) {
 
-                output.println("host-myIP-check");
+                output.println("host-check");
 
                 try {
                     sleep(200);
@@ -77,21 +77,25 @@ public class ControllerConnection extends Thread{
 
                     if(message[0].equals("you")){//to who
 
-                        switch(message[2]) {//what command
+                        switch(message[1]) {//command
 
                             case "addTarget": //add Target
 
-                                addTarget(message[1]);
+                                addTarget(message[2]);
                                 break;
 
                             case "removeTarget": //remove Target
 
-                                deleteTarget(message[1]);
+                                deleteTarget(message[2]);
                                 break;
 
                             case "addTargetInfo": //add target info
 
-                                getTargetInList(message[1]).setInfo(message);
+                                getTargetInList(message[2]).setInfo(message);
+
+                                if(ControllerTerminalFrame.target != null && message[2].equals(ControllerTerminalFrame.target.ip))
+                                    ControllerTerminalFrame.me.updateTargetInfo();
+
                                 break;
                         }
 

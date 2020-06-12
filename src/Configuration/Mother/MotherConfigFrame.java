@@ -12,6 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -93,6 +94,7 @@ public class MotherConfigFrame {
 
         stage = new Stage();
 
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Mother Config");
         stage.setScene(new Scene(FXMLLoader.load(MotherConfigFrame.class.getResource("MotherConfigFrame.fxml")),300, 275));
 

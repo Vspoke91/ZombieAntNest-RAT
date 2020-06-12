@@ -1,8 +1,6 @@
 package Utilities.Child;
 
-import Controller.Terminal.ControllerTerminalFrame;
 import Mother.Connection.MotherConnection;
-import javafx.application.Platform;
 
 import java.io.PrintWriter;
 
@@ -29,10 +27,10 @@ public class Target extends Child {
             case "flashLightState": //flashlightState
 
                 isFlashlightOn = Boolean.valueOf(message[4]);
-                MotherConnection.sendMessageToAllControllers("you-"+ ip +"-addTargetInfo-flashLightState-" + isFlashlightOn);
                 break;
 
             case "os":
+
                 os = message[4];
                 break;
         }
@@ -40,7 +38,7 @@ public class Target extends Child {
 
     public void sendAllInfo(PrintWriter output){
 
-        output.println("you-" + ip + "-addTargetInfo-os-" + os);
-        output.println("you-" + ip + "-addTargetInfo-flashLightState-" + isFlashlightOn);
+        output.println("you-addTargetInfo-"+ip+"-os-"+os);
+        output.println("you-addTargetInfo-"+ip+"-flashLightState-"+isFlashlightOn);
     }
 }

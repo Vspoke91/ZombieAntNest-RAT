@@ -24,6 +24,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
@@ -35,8 +36,10 @@ public class MotherTerminalFrame {
     public static Stage stage;
 
     public int connectionCounter;
+    public int dataCounter;
     public ClientConnection selectedConnection;
 
+    @FXML Label dataCount_label;
     @FXML Label pablo_label;
     @FXML Label selectedIP_label;
     @FXML Label selectedDeviceType_label;
@@ -48,7 +51,6 @@ public class MotherTerminalFrame {
     @FXML TextField command_textField;
     @FXML ScrollPane log_ScrollPane;
     @FXML ListView ip_ListView;
-    @FXML Button takeControl_Button;
 
     public MotherTerminalFrame(){
         me = this;
@@ -91,8 +93,22 @@ public class MotherTerminalFrame {
             }
 
         }).start();
-
     }
+
+    public void startDataCounter(){
+        new Thread(() -> {
+            while(true){
+                int x = dataCounter; //saves data so it does not delay dataCounter
+                dataCounter = 0;
+
+                Platform.runLater(() -> dataCount_label.setText("Data: "+x+"/s"));
+
+                try { synchronized (this) { wait(1000); }} catch (InterruptedException e) { e.printStackTrace(); }
+            }
+        }).start();
+    }
+
+    public void addDataCount(){ dataCounter++; }
 
     public void selectingTarget_Listener(){
 
@@ -268,6 +284,7 @@ public class MotherTerminalFrame {
 
         stage = new Stage();
 
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Terminal - Mother");
         stage.setScene(new Scene(FXMLLoader.load(MotherTerminalFrame.class.getResource("MotherTerminalFrame.fxml")), 630, 400));
         stage.show();

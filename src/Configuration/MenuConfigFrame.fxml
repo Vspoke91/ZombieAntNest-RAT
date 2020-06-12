@@ -5,10 +5,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="307.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Configuration.MenuConfigFrame">
-   <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<AnchorPane prefHeight="307.0" prefWidth="235.0" styleClass="background" stylesheets="@../Style/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Configuration.MenuConfigFrame">
+   <VBox prefHeight="200.0" prefWidth="100.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-         <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+         <HBox maxHeight="-Infinity" prefHeight="17.0" styleClass="background-head" VBox.vgrow="ALWAYS">
             <children>
                      <Label fx:id="ip_label" text="IP: NULL">
                   <HBox.margin>
@@ -17,7 +17,7 @@
                </Label>
             </children>
          </HBox>
-            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="614.0">
+            <VBox alignment="CENTER" prefHeight="418.0" prefWidth="614.0" styleClass="background">
             <Label fx:id="errorWifi_label" text="No Internet Connection!" textFill="RED">
                <VBox.margin>
                   <Insets bottom="10.0" />

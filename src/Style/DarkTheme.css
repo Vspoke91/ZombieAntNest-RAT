@@ -1,0 +1,49 @@
+.label {
+   -fx-text-fill: White;
+}
+
+.label-head {
+    -fx-background-color: #262626;
+}
+
+.label-pablo {
+    -fx-text-fill: #37eb17;
+}
+
+.text-field {
+   -fx-text-fill: White;
+   -fx-background-color: #1a1a1a;
+}
+
+.text-field:focused {
+   -fx-background-color: #262626;
+}
+
+.check-box {
+   -fx-text-fill: White;
+}
+
+.button {
+   -fx-background-color: #1a1a1a;
+   -fx-text-fill: White;
+}
+
+.split-pane-divider {
+    -fx-border-style: solid;
+    -fx-border-width: 0px;
+    -fx-background-color: #262626;
+    -fx-padding: 2 2 2 2;
+}
+
+.button:hover{
+    -fx-background-color: #262626;
+}
+
+.background {
+   -fx-background-color: #302f32;
+}
+
+.background-head {
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-border-color: #656369;
+}

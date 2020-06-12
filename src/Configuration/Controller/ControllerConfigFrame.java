@@ -12,6 +12,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -123,6 +124,7 @@ public class ControllerConfigFrame {
 
         stage = new Stage();
 
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Controller Config");
         stage.setScene(new Scene(FXMLLoader.load(ControllerConfigFrame.class.getResource("ControllerConfigFrame.fxml")), 300, 275));
 
