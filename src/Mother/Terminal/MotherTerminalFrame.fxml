@@ -7,10 +7,11 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="630.0" styleClass="background" stylesheets="@../../Style/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Mother.Terminal.MotherTerminalFrame">
    <children>
-      <VBox prefHeight="200.0" prefWidth="100.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox maxHeight="-Infinity" prefHeight="30.0" prefWidth="600.0" styleClass="background-head" VBox.vgrow="ALWAYS">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <HBox fx:id="header_pane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="background-head" BorderPane.alignment="CENTER">
                <children>
+                  
                   <Label fx:id="ip_label" maxHeight="1.7976931348623157E308" text="IP: NULL" HBox.hgrow="ALWAYS">
                      <HBox.margin>
                         <Insets left="10.0" />
@@ -35,53 +36,60 @@
                      <HBox.margin>
                         <Insets left="10.0" />
                      </HBox.margin></Label>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <SplitPane dividerPositions="0.24363057324840764" styleClass="background">
-               <items>
-                  <VBox prefHeight="200.0" prefWidth="100.0" styleClass="background">
+
+                  <AnchorPane HBox.hgrow="ALWAYS">
                      <children>
-                        <VBox prefHeight="84.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+
+                        <Button fx:id="hide_button" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" styleClass="button_hide" text="-" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="exit_button" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" styleClass="button_exit" text="X" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </children>
+            </HBox>
+         </top>
+         <center>
+            <SplitPane dividerPositions="0.24363057324840764" styleClass="background" BorderPane.alignment="CENTER">
+               <items>
+                  <VBox minWidth="117.0" prefHeight="200.0" prefWidth="100.0" styleClass="background">
+                     <children>
+                        <VBox maxWidth="1.7976931348623157E308" prefHeight="84.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="235.0" styleClass="label-head" text="Info" />
-                              <Label fx:id="selectedIP_label" prefHeight="17.0" prefWidth="195.0" text="IP: ----" VBox.vgrow="ALWAYS">
+                              <Label fx:id="selectedIP_label" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="195.0" text="IP: ----" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label fx:id="selectedConnectionType_label" prefHeight="17.0" prefWidth="164.0" text="Type: ----" VBox.vgrow="ALWAYS">
+                              <Label fx:id="selectedConnectionType_label" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="164.0" text="Type: ----" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets bottom="5.0" />
                                  </VBox.margin>
                               </Label>
-                              <Label fx:id="selectedDeviceType_label" prefHeight="17.0" prefWidth="172.0" text="OS: ----" VBox.vgrow="ALWAYS" />
+                              <Label fx:id="selectedDeviceType_label" maxWidth="1.7976931348623157E308" prefHeight="17.0" prefWidth="172.0" text="OS: ----" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
                            <children>
                               <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="127.0" styleClass="label-head" text="IP List" VBox.vgrow="ALWAYS" />
-                              <ListView fx:id="ip_ListView" prefHeight="337.0" prefWidth="185.0" styleClass="background" VBox.vgrow="ALWAYS" />
+                              <ListView fx:id="ip_ListView" maxWidth="1.7976931348623157E308" prefHeight="337.0" prefWidth="185.0" styleClass="background" VBox.vgrow="ALWAYS" />
                            </children>
                         </VBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="400.0" prefWidth="445.0" styleClass="background">
+                  <VBox maxWidth="1.7976931348623157E308" minWidth="117.0" prefHeight="400.0" prefWidth="445.0" styleClass="background">
                      <children>
-                        <Label alignment="CENTER" maxHeight="-Infinity" prefHeight="20.0" prefWidth="472.0" styleClass="label-head" text="Terminal" VBox.vgrow="ALWAYS" />
+                        <Label alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="472.0" styleClass="label-head" text="Terminal" VBox.vgrow="ALWAYS" />
                         <ScrollPane fx:id="log_ScrollPane" fitToHeight="true" fitToWidth="true" prefHeight="310.0" prefWidth="472.0" styleClass="background" VBox.vgrow="ALWAYS">
                            <content>
-                              <TextFlow fx:id="log_textFlow" prefHeight="317.0" prefWidth="470.0" styleClass="background" />
+                              <TextFlow fx:id="log_textFlow" maxWidth="1.7976931348623157E308" prefHeight="317.0" prefWidth="470.0" styleClass="background" />
                            </content>
                         </ScrollPane>
-                        <TextField fx:id="command_textField" maxHeight="-Infinity" onAction="#onEnter" prefHeight="30.0" prefWidth="472.0" promptText="Command...." VBox.vgrow="ALWAYS" />
+                        <TextField fx:id="command_textField" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" onAction="#onEnter" prefHeight="30.0" prefWidth="472.0" promptText="Command...." VBox.vgrow="ALWAYS" />
                      </children>
                   </VBox>
                </items>
             </SplitPane>
-         </children>
-      </VBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

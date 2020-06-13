@@ -10,6 +10,7 @@ import Main.Main;
 import Utilities.Child.Child;
 import Utilities.Child.Controller;
 import Utilities.Child.Target;
+import Utilities.FrameUtilities;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,6 +21,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -29,8 +31,7 @@ import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
-public class MotherTerminalFrame {
-
+public class MotherTerminalFrame extends FrameUtilities {
 
     public static MotherTerminalFrame me;
     public static Stage stage;
@@ -39,6 +40,7 @@ public class MotherTerminalFrame {
     public int dataCounter;
     public ClientConnection selectedConnection;
 
+    @FXML HBox header_pane;
     @FXML Label dataCount_label;
     @FXML Label pablo_label;
     @FXML Label selectedIP_label;
@@ -51,12 +53,16 @@ public class MotherTerminalFrame {
     @FXML TextField command_textField;
     @FXML ScrollPane log_ScrollPane;
     @FXML ListView ip_ListView;
+    @FXML Button exit_button;
+    @FXML Button hide_button;
 
     public MotherTerminalFrame(){
         me = this;
     }
 
     public void initialize(){
+
+        startFrameUtilities(stage, header_pane, exit_button, hide_button);
 
         ip_label.setText("IP: "+ Main.ip);
         port_label.setText("Port: "+Main.port);
@@ -286,7 +292,7 @@ public class MotherTerminalFrame {
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Terminal - Mother");
-        stage.setScene(new Scene(FXMLLoader.load(MotherTerminalFrame.class.getResource("MotherTerminalFrame.fxml")), 630, 400));
+        stage.setScene(new Scene(FXMLLoader.load(MotherTerminalFrame.class.getResource("MotherTerminalFrame.fxml"))));
         stage.show();
     }
 }

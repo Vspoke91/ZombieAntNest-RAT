@@ -5,54 +5,76 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="347.0" prefWidth="300.0" styleClass="background" stylesheets="@../../Style/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Configuration.Controller.ControllerConfigFrame">
+<AnchorPane styleClass="background" stylesheets="@../../Style/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Configuration.Controller.ControllerConfigFrame">
    <children>
-      <VBox alignment="CENTER" layoutX="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="600.0" text="Controller Configuration" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="154.0" text="Mother IP:" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="hostIP_textField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="156.0" promptText="000.00.00.000" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="154.0" text="Port:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="port_textField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="156.0" promptText="1234">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin></TextField>
-            <CheckBox fx:id="save_checkBox" mnemonicParsing="false" text="Save" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </CheckBox>
-            <Button fx:id="connect_button" mnemonicParsing="false" onAction="#startConnection" text="Connect">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Label fx:id="error_label" text="Error Label" textFill="RED">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-         </children>
-      </VBox>
-      <Button mnemonicParsing="false" onAction="#backAction" text="Back" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <VBox alignment="CENTER" prefHeight="177.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="600.0" text="Controller Configuration" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="154.0" text="Mother IP:" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="hostIP_textField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="156.0" promptText="000.00.00.000" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <Label contentDisplay="CENTER" prefHeight="17.0" prefWidth="154.0" text="Port:">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="port_textField" maxWidth="-Infinity" prefHeight="25.0" prefWidth="156.0" promptText="1234">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="save_checkBox" mnemonicParsing="false" text="Save" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <Button fx:id="connect_button" mnemonicParsing="false" onAction="#startConnection" text="Connect">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label fx:id="error_label" text="Error Label" textFill="RED">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </center>
+         <top>
+            <HBox fx:id="header_pane" alignment="CENTER_RIGHT" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="background-head" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane HBox.hgrow="ALWAYS">
+                     <children>
+
+                        <Button fx:id="hide_button" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" styleClass="button_hide" text="-" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="exit_button" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" styleClass="button_exit" text="X" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </children></HBox>
+         </top>
+      <bottom>
+         <HBox BorderPane.alignment="CENTER">
+            <children>
+               <Button mnemonicParsing="false" onAction="#backAction" text="Back" />
+            </children>
+         </HBox>
+      </bottom></BorderPane>
    </children>
 </AnchorPane>

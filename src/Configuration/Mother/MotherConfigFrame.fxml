@@ -5,50 +5,72 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="296.0" prefWidth="333.0" styleClass="background" stylesheets="@../../Style/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Configuration.Mother.MotherConfigFrame">
+<AnchorPane styleClass="background" stylesheets="@../../Style/DarkTheme.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Configuration.Mother.MotherConfigFrame">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="background" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Mother Configuration">
-               <font>
-                  <Font size="15.0" />
-               </font>
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label fx:id="ip_label" prefHeight="16.0" text="My IP: NULL">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <Label prefHeight="16.0" prefWidth="156.0" text="Port:">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-            <TextField fx:id="port_textField" maxWidth="-Infinity" prefWidth="156.0" promptText="1234">
-               <VBox.margin>
-                  <Insets top="5.0" />
-               </VBox.margin>
-            </TextField>
-            <CheckBox fx:id="save_checkBox" mnemonicParsing="false" text="Save">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </CheckBox>
-            <Button fx:id="create_button" mnemonicParsing="false" onAction="#createConnection" text="Create">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Button>
-            <Label fx:id="error_label" text="Error Label" textFill="RED" VBox.vgrow="ALWAYS">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
-         </children>
-      </VBox>
-      <Button mnemonicParsing="false" onAction="#backAction" text="Back" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" styleClass="background" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Mother Configuration">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets bottom="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label fx:id="ip_label" prefHeight="17.0" prefWidth="156.0" text="My IP: NULL">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="16.0" prefWidth="156.0" text="Port:">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <TextField fx:id="port_textField" maxWidth="-Infinity" prefWidth="156.0" promptText="1234">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <CheckBox fx:id="save_checkBox" mnemonicParsing="false" text="Save">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </CheckBox>
+                  <Button fx:id="create_button" mnemonicParsing="false" onAction="#createConnection" text="Create">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label fx:id="error_label" text="Error Label" textFill="RED" VBox.vgrow="ALWAYS">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+         </center>
+         <top>
+            <HBox fx:id="header_pane" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="30.0" styleClass="background-head" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane HBox.hgrow="ALWAYS">
+                     <children>
+
+                        <Button fx:id="hide_button" alignment="CENTER" contentDisplay="CENTER" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" styleClass="button_hide" text="-" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0" />
+                        <Button fx:id="exit_button" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefWidth="30.0" styleClass="button_exit" text="X" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                     </children>
+                  </AnchorPane>
+               </children></HBox>
+         </top>
+         <bottom>
+            <HBox BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#backAction" text="Back" />
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

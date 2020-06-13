@@ -3,6 +3,7 @@ package Configuration.Controller;
 import Controller.Terminal.ControllerTerminalFrame;
 import Configuration.MenuConfigFrame;
 import Main.Main;
+import Utilities.FrameUtilities;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -24,22 +27,30 @@ import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
 
-public class ControllerConfigFrame {
+public class ControllerConfigFrame extends FrameUtilities {
 
     public static ControllerConfigFrame me;
     public static Stage stage;
 
+    private double xOffset = 0.0;
+    private double yOffset = 0.0;
+
+    @FXML HBox header_pane;
     @FXML Label error_label;
     @FXML TextField hostIP_textField;
     @FXML TextField port_textField;
     @FXML CheckBox save_checkBox;
     @FXML Button connect_button;
+    @FXML Button exit_button;
+    @FXML Button hide_button;
 
     public ControllerConfigFrame(){
         me = this;
     }
 
     public void initialize() throws FileNotFoundException {
+
+        startFrameUtilities(stage, header_pane, exit_button, hide_button);
 
         error_label.setVisible(false);
 
@@ -126,7 +137,7 @@ public class ControllerConfigFrame {
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Controller Config");
-        stage.setScene(new Scene(FXMLLoader.load(ControllerConfigFrame.class.getResource("ControllerConfigFrame.fxml")), 300, 275));
+        stage.setScene(new Scene(FXMLLoader.load(ControllerConfigFrame.class.getResource("ControllerConfigFrame.fxml"))));
 
         stage.show();
     }

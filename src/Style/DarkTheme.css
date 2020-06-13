@@ -23,11 +23,6 @@
    -fx-text-fill: White;
 }
 
-.button {
-   -fx-background-color: #1a1a1a;
-   -fx-text-fill: White;
-}
-
 .split-pane-divider {
     -fx-border-style: solid;
     -fx-border-width: 0px;
@@ -35,7 +30,34 @@
     -fx-padding: 2 2 2 2;
 }
 
+.button {
+   -fx-background-color: #1a1a1a;
+   -fx-text-fill: White;
+}
+
 .button:hover{
+    -fx-background-color: #262626;
+}
+
+.button_exit {
+   -fx-background-color: transparent;
+   -fx-text-fill: #ff0000;
+   -fx-background-radius: 0;
+
+}
+
+.button_exit:hover{
+    -fx-text-fill: #1a1a1a;
+    -fx-background-color: #ff0000;
+}
+
+.button_hide {
+   -fx-background-color: transparent;
+   -fx-text-fill: #d9d9d9;
+   -fx-background-radius: 0;
+}
+
+.button_hide:hover{
     -fx-background-color: #262626;
 }
 
@@ -46,4 +68,49 @@
 .background-head {
     -fx-border-width: 0px 0px 1px 0px;
     -fx-border-color: #656369;
+}
+
+.tab{
+    -fx-focus-color: transparent;
+    -fx-background-color: #262626;
+}
+
+.tab:selected{
+    -fx-border-width: 1px 1px 0px 1px;
+    -fx-border-color: #00cc00;
+}
+
+.tab:hover{
+    -fx-background-color: #656369;
+}
+
+.tab-label{
+    -fx-text-fill: White;
+}
+
+.tab-header-background{
+    -fx-background-color: #3e3d42;
+}
+
+.list-view{
+
+    -fx-background-color: #302f32;
+}
+
+.list-cell:even{
+
+    -fx-text-fill: White;
+    -fx-background-color: #323135;
+
+}
+
+.list-cell:odd{
+
+    -fx-text-fill: White;
+    -fx-background-color: #3e3d42;
+}
+
+.list-cell:selected{
+
+    -fx-text-fill: #00ff00;
 }

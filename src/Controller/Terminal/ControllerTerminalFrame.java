@@ -4,6 +4,7 @@ import Controller.Connection.ControllerConnection;
 import Main.Main;
 import Utilities.Child.Target;
 
+import Utilities.FrameUtilities;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -14,13 +15,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import javax.swing.*;
 import java.io.IOException;
 import java.net.Socket;
 
-public class ControllerTerminalFrame {
+public class ControllerTerminalFrame extends FrameUtilities {
 
     public static ControllerTerminalFrame me;
     public static Stage stage;
@@ -29,6 +32,7 @@ public class ControllerTerminalFrame {
     public static Target target;
     public static boolean isLocalConnection = false;
 
+    @FXML HBox header_pane;
     @FXML Label target_label;
     @FXML Label hostIP_label;
     @FXML Label port_label;
@@ -42,11 +46,16 @@ public class ControllerTerminalFrame {
     @FXML Tab device_tab;
     @FXML Tab commands_tab;
 
+    @FXML Button exit_button;
+    @FXML Button hide_button;
+
     public ControllerTerminalFrame(){
         me = this;
     }
 
     public void initialize(){
+
+        startFrameUtilities(stage, header_pane, exit_button, hide_button);
 
         device_tab.setDisable(true);
         commands_tab.setDisable(true);
@@ -122,8 +131,9 @@ public class ControllerTerminalFrame {
 
         stage = new Stage();
 
+        stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Terminal - Controller");
-        stage.setScene(new Scene(FXMLLoader.load(ControllerTerminalFrame.class.getResource("ControllerTerminalFrame.fxml")), 630, 400));
+        stage.setScene(new Scene(FXMLLoader.load(ControllerTerminalFrame.class.getResource("ControllerTerminalFrame.fxml"))));
 
         stage.show();
     }

@@ -4,6 +4,7 @@ import Configuration.Controller.ControllerConfigFrame;
 import Configuration.Mother.MotherConfigFrame;
 import Main.Main;
 
+import Utilities.FrameUtilities;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,7 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -22,22 +24,27 @@ import java.net.URL;
 
 import static java.lang.Thread.sleep;
 
-public class MenuConfigFrame {
+public class MenuConfigFrame extends FrameUtilities {
 
     public static MenuConfigFrame me;
     public static Stage stage;
 
+    @FXML HBox header_pane;
     @FXML Label ip_label;
     @FXML Label errorWifi_label;
     @FXML Label error_label;
     @FXML Button mother_button;
     @FXML Button controller_button;
+    @FXML Button exit_button;
+    @FXML Button hide_button;
 
     public MenuConfigFrame(){
         me = this;
     }
 
     public void initialize() throws IOException {
+
+        startFrameUtilities(stage, header_pane, exit_button, hide_button);
 
         errorWifi_label.setVisible(false);
         error_label.setVisible(false);
@@ -102,7 +109,7 @@ public class MenuConfigFrame {
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("ZAN-RAT Menu");
-        stage.setScene(new Scene(FXMLLoader.load(MenuConfigFrame.class.getResource("MenuConfigFrame.fxml")), 300, 300));
+        stage.setScene(new Scene(FXMLLoader.load(MenuConfigFrame.class.getResource("MenuConfigFrame.fxml"))));
 
         stage.show();
     }

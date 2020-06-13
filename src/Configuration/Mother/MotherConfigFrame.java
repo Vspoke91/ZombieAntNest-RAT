@@ -3,6 +3,7 @@ package Configuration.Mother;
 import Mother.Terminal.MotherTerminalFrame;
 import Configuration.MenuConfigFrame;
 import Main.Main;
+import Utilities.FrameUtilities;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -22,17 +24,22 @@ import java.util.Scanner;
 
 import static java.lang.Thread.sleep;
 
-public class MotherConfigFrame {
+public class MotherConfigFrame extends FrameUtilities {
 
     public static Stage stage;
 
+    @FXML HBox header_pane;
     @FXML Label error_label;
     @FXML TextField port_textField;
     @FXML Label ip_label;
     @FXML CheckBox save_checkBox;
     @FXML Button create_button;
+    @FXML Button exit_button;
+    @FXML Button hide_button;
 
     public void initialize() throws IOException {
+
+        startFrameUtilities(stage, header_pane, exit_button, hide_button);
 
         error_label.setVisible(false);
 
@@ -96,7 +103,7 @@ public class MotherConfigFrame {
 
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle("Mother Config");
-        stage.setScene(new Scene(FXMLLoader.load(MotherConfigFrame.class.getResource("MotherConfigFrame.fxml")),300, 275));
+        stage.setScene(new Scene(FXMLLoader.load(MotherConfigFrame.class.getResource("MotherConfigFrame.fxml"))));
 
         stage.show();
     }
